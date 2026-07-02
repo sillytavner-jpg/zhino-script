@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>明月秋青智脑 &mdash; 使用说明书</title>
+<style>
+  /* ============================================================
+     智脑说明书 — 夜空星光玻璃 · 宽屏阅读版
+     设计 token 基于智脑面板，布局按 taste-skill 重构
+     VARIANCE 6 / MOTION 5 / DENSITY 3
+     ============================================================ */
+  :root {
+    --bg: #0e0b1f;
+    --bg-elevated: #12102a;
+    --surface: rgba(18, 16, 42, 0.85);
+    --surface-hover: rgba(167, 139, 250, 0.10);
+    --surface-active: rgba(167, 139, 250, 0.16);
+    --accent: #a78bfa;
+    --accent-rgb: 167, 139, 250;
+    --accent-dim: rgba(167, 139, 250, 0.14);
+    --accent-glow: rgba(167, 139, 250, 0.35);
+    --border: rgba(167, 139, 250, 0.18);
+    --border-light: rgba(255, 255, 255, 0.07);
+    --text-primary: rgba(255, 255, 255, 0.92);
+    --text-regular: rgba(255, 255, 255, 0.68);
+    --text-muted: rgba(255, 255, 255, 0.38);
+    --green: #4ade80; --green-bg: rgba(74,222,128,0.10); --green-border: rgba(74,222,128,0.22);
+    --red: #f87171; --red-bg: rgba(248,113,113,0.10); --red-border: rgba(248,113,113,0.22);
+    --yellow: #fbbf24; --yellow-bg: rgba(251,191,36,0.08); --yellow-border: rgba(251,191,36,0.20);
+    --radius-sm: 8px; --radius: 12px; --radius-lg: 16px; --radius-xl: 20px;
+    --shadow-glass: 0 24px 60px rgba(8, 6, 24, 0.7);
+    --shadow-card: 0 2px 12px rgba(0,0,0,0.25);
+    --glow: 0 0 32px rgba(167, 139, 250, 0.25);
+    --glass-highlight: inset 0 1px 0 rgba(255,255,255,0.06);
+    --sans: 'PingFang SC','Microsoft YaHei',system-ui,-apple-system,'Helvetica Neue',sans-serif;
+    --mono: 'JetBrains Mono','SF Mono','Cascadia Code','Consolas',monospace;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg);color:var(--text-regular);
+    font-family:var(--sans);line-height:1.75;
+    min-height:100vh;position:relative;overflow-x:hidden;
+  }
+
+  /* ============ 环境氛围 ============ */
+
+  /* 慢速移动的径向光斑 */
+  .ambient-glow{
+    position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  }
+  .ambient-glow::before{
+    content:'';position:absolute;
+    width:800px;height:800px;
+    top:-200px;left:-200px;
+    background:radial-gradient(circle,rgba(167,139,250,0.06),transparent 70%);
+    border-radius:50%;
+    animation:drift-a 28s ease-in-out infinite;
+  }
+  .ambient-glow::after{
+    content:'';position:absolute;
+    width:600px;height:600px;
+    bottom:-150px;right:-150px;
+    background:radial-gradient(circle,rgba(139,92,246,0.05),transparent 70%);
+    border-radius:50%;
+    animation:drift-b 32s ease-in-out infinite;
+  }
+  @keyframes drift-a{
+    0%,100%{transform:translate(0,0)}
+    25%{transform:translate(120px,60px)}
+    50%{transform:translate(40px,140px)}
+    75%{transform:translate(-40px,80px)}
+  }
+  @keyframes drift-b{
+    0%,100%{transform:translate(0,0)}
+    33%{transform:translate(-80px,-40px)}
+    66%{transform:translate(-30px,-100px)}
+  }
+
+  /* Canvas 星空 */
+  .starfield{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+  }
+
+  .noise{
+    position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.018;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ============ 导航栏 ============ */
+  .nav{
+    position:fixed;top:0;left:0;width:220px;height:100vh;
+    overflow-y:auto;z-index:100;
+    background:rgba(10,8,26,0.88);
+    border-right:1px solid var(--border-light);
+    backdrop-filter:blur(14px) saturate(120%);
+    -webkit-backdrop-filter:blur(14px) saturate(120%);
+    padding:32px 20px;font-size:0.82rem;line-height:2;
+  }
+  .nav-logo{
+    font-size:1.05rem;font-weight:650;color:var(--text-primary);
+    margin-bottom:2px;letter-spacing:-0.01em;
+  }
+  .nav-ver{
+    font-size:0.7rem;color:var(--text-muted);
+    margin-bottom:18px;padding-bottom:14px;
+    border-bottom:1px solid var(--border-light);
+  }
+  .nav a{
+    display:block;color:var(--text-muted);text-decoration:none;
+    padding:1px 0;transition:color 0.2s;font-weight:450;
+  }
+  .nav a:hover,.nav a.nav-active{color:var(--accent)}
+  .nav-h2{font-weight:600;color:var(--text-primary)!important;margin-top:14px;font-size:0.84rem}
+  .nav-h3{padding-left:10px;font-size:0.76rem}
+  .nav-h3:hover{color:var(--text-regular)!important}
+
+  /* ============ 主内容区 ============ */
+  .main{
+    margin-left:220px;position:relative;z-index:1;
+    padding:60px 48px 140px;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .content{width:100%;max-width:920px}
+
+  /* ============ 排版 ============ */
+  h1{
+    font-size:2rem;font-weight:700;letter-spacing:-0.025em;
+    line-height:1.2;color:var(--text-primary);
+    margin:72px 0 14px;
+  }
+  h1:first-of-type{margin-top:0}
+  h2{
+    font-size:1.3rem;font-weight:650;letter-spacing:-0.015em;
+    line-height:1.3;color:var(--text-primary);
+    margin:52px 0 10px;
+  }
+  h3{
+    font-size:1.05rem;font-weight:600;color:var(--text-primary);
+    margin:32px 0 8px;
+  }
+  p{margin:8px 0;max-width:72ch}
+  strong{font-weight:600;color:var(--text-primary)}
+  ul,ol{padding-left:22px;margin:8px 0}
+  li{margin:4px 0}
+  a{color:var(--accent);text-decoration:none;transition:opacity 0.2s}
+  a:hover{opacity:0.8}
+
+  /* ============ Hero 区 ============ */
+  .hero{
+    position:relative;margin-bottom:40px;padding:32px 0 20px;
+    border-bottom:1px solid var(--border-light);
+  }
+  .hero-tag{
+    display:inline-block;font-size:0.7rem;font-weight:500;
+    letter-spacing:0.08em;color:var(--accent);
+    padding:3px 10px;border-radius:var(--radius-sm);
+    background:var(--accent-dim);
+    border:1px solid rgba(var(--accent-rgb),0.25);
+    margin-bottom:18px;
+  }
+  .hero h1{font-size:2.4rem;margin:0 0 12px;line-height:1.15;letter-spacing:-0.03em}
+  .hero .hero-sub{
+    font-size:1.05rem;color:var(--text-regular);max-width:600px;line-height:1.6;
+  }
+  .hero-stats{
+    display:flex;gap:32px;margin-top:24px;
+  }
+  .hero-stat{}
+  .hero-stat-val{font-size:1.6rem;font-weight:700;color:var(--accent);line-height:1.2}
+  .hero-stat-label{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.04em}
+
+  /* ============ 玻璃卡片 ============ */
+  .glass-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--glass-highlight),var(--shadow-card);
+    backdrop-filter:blur(12px) saturate(120%);
+    -webkit-backdrop-filter:blur(12px) saturate(120%);
+    padding:24px 28px;
+    transition:border-color 0.25s,box-shadow 0.25s,transform 0.25s;
+  }
+  .glass-card:hover{
+    border-color:rgba(var(--accent-rgb),0.35);
+    box-shadow:var(--glass-highlight),var(--glow);
+    transform:translateY(-2px);
+  }
+  .glass-card-accent{
+    background:rgba(167,139,250,0.06);
+    border-color:rgba(var(--accent-rgb),0.30);
+  }
+
+  /* ============ Bento 功能网格 ============ */
+  .bento{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;margin:24px 0;
+  }
+
+  .bento-card{
+    background:rgba(255,255,255,0.025);
+    border:1px solid var(--border-light);
+    border-radius:var(--radius);padding:18px 16px;
+    transition:background 0.25s,border-color 0.25s,box-shadow 0.25s,transform 0.25s;
+    cursor:default;
+  }
+  .bento-card:hover{
+    background:rgba(167,139,250,0.07);
+    border-color:rgba(var(--accent-rgb),0.28);
+    box-shadow:0 0 28px rgba(167,139,250,0.18);
+    transform:translateY(-2px);
+  }
+
+  /* 全宽卡片 */
+  .bento-card.full{grid-column:1/-1}
+  /* 全宽卡片 — 微紫渐变底 */
+  .bento-card.full.gradient-bg{
+    background:radial-gradient(ellipse at 30% 20%,rgba(167,139,250,0.06),transparent 60%),
+               rgba(255,255,255,0.025);
+    border-color:rgba(var(--accent-rgb),0.14);
+  }
+  .bento-card.full.gradient-bg .bento-title{color:var(--accent)}
+  .bento-card.full.gradient-bg:hover{
+    background:radial-gradient(ellipse at 30% 20%,rgba(167,139,250,0.10),transparent 60%),
+               rgba(167,139,250,0.05);
+    border-color:rgba(var(--accent-rgb),0.30);
+  }
+
+  .bento-label{
+    font-size:0.66rem;font-weight:500;letter-spacing:0.05em;
+    color:var(--text-muted);margin-bottom:6px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .bento-label-dot{
+    width:6px;height:6px;border-radius:50%;flex-shrink:0;
+  }
+  .bento-label-dot.auto{background:var(--accent)}
+  .bento-label-dot.manual{background:var(--yellow)}
+  .bento-label-dot.optional{background:var(--green)}
+  .bento-title{
+    font-size:0.96rem;font-weight:650;color:var(--text-primary);
+    margin-bottom:4px;letter-spacing:-0.01em;
+  }
+  .bento-desc{font-size:0.8rem;color:var(--text-regular);line-height:1.5}
+
+  /* ============ 步骤条 ============ */
+  .steps{display:flex;gap:16px;margin:14px 0;flex-wrap:wrap}
+  .step{
+    flex:1;min-width:180px;display:flex;gap:12px;align-items:flex-start;
+    background:rgba(255,255,255,0.02);border:1px solid var(--border-light);
+    border-radius:var(--radius);padding:16px;
+    transition:border-color 0.25s,background 0.25s;
+  }
+  .step:hover{
+    background:rgba(167,139,250,0.05);
+    border-color:rgba(var(--accent-rgb),0.22);
+  }
+  .step-num{
+    min-width:28px;height:28px;
+    background:var(--accent);color:#fff;
+    border-radius:var(--radius-sm);
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.78rem;font-weight:650;flex-shrink:0;margin-top:1px;
+  }
+  .step-text{font-size:0.9rem;line-height:1.55}
+
+  /* ============ URL 展示条 ============ */
+  .url-display{
+    display:flex;align-items:center;gap:12px;
+    background:rgba(255,255,255,0.03);border:1px solid var(--border-light);
+    border-radius:var(--radius);padding:14px 18px;
+    font-family:var(--mono);font-size:0.84rem;color:var(--accent);
+    word-break:break-all;margin:8px 0;user-select:all;
+    transition:border-color 0.25s,box-shadow 0.25s;
+  }
+  .url-display:hover{
+    border-color:rgba(var(--accent-rgb),0.4);
+    box-shadow:0 0 24px rgba(167,139,250,0.15);
+  }
+  .url-display .url-icon{flex-shrink:0;font-size:1.1rem}
+
+  /* ============ 表格 ============ */
+  .tbl-wrap{overflow-x:auto;margin:16px 0;border-radius:var(--radius-lg);border:1px solid var(--border-light)}
+  table{width:100%;border-collapse:collapse;font-size:0.85rem}
+  th,td{border-bottom:1px solid var(--border-light);padding:11px 14px;text-align:left;vertical-align:top}
+  th{
+    font-weight:600;font-size:0.74rem;letter-spacing:0.05em;
+    color:var(--text-muted);background:rgba(255,255,255,0.02);
+  }
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:var(--surface-hover)}
+
+  /* ============ Tag 标签 ============ */
+  .tag{
+    display:inline-block;font-size:0.68rem;font-weight:500;
+    letter-spacing:0.04em;padding:2px 8px;border-radius:var(--radius-sm);
+    margin-right:2px;white-space:nowrap;border:1px solid;
+  }
+  .tag-on{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
+  .tag-off{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
+  .tag-rec{background:var(--accent-dim);color:var(--accent);border-color:rgba(var(--accent-rgb),0.3)}
+  .tag-opt{background:rgba(167,139,250,0.07);color:rgba(167,139,250,0.8);border-color:rgba(167,139,250,0.18)}
+
+  /* ============ Callout ============ */
+  .note{
+    padding:16px 20px;margin:18px 0;border-radius:var(--radius);
+    font-size:0.86rem;line-height:1.65;border:1px solid;
+  }
+  .note-tip{background:var(--green-bg);border-color:var(--green-border);color:#86efac}
+  .note-warn{background:var(--yellow-bg);border-color:var(--yellow-border);color:#fcd34d}
+  .note-info{background:rgba(167,139,250,0.06);border-color:rgba(167,139,250,0.18);color:#c4b5fd}
+  .note strong{color:inherit}
+
+  /* ============ 分隔线 ============ */
+  .divider{border:none;border-top:1px solid var(--border-light);margin:48px 0}
+
+  /* ============ FAQ 折叠 (grid-template-rows, 无卡顿) ============ */
+  .faq-item{border-bottom:1px solid var(--border-light)}
+  .faq-q{
+    width:100%;background:none;border:none;color:var(--text-primary);
+    font-family:var(--sans);font-size:0.95rem;font-weight:600;
+    padding:16px 0;text-align:left;cursor:pointer;display:flex;
+    justify-content:space-between;align-items:center;
+    transition:color 0.2s;
+  }
+  .faq-q:hover{color:var(--accent)}
+  .faq-q::after{content:'+';font-size:1.1rem;font-weight:400;color:var(--text-muted);transition:transform 0.25s}
+  .faq-q.open::after{transform:rotate(45deg)}
+  .faq-a{
+    display:grid;grid-template-rows:0fr;
+    transition:grid-template-rows 0.35s ease;
+  }
+  .faq-a.open{grid-template-rows:1fr;padding-bottom:16px}
+  .faq-a-inner{overflow:hidden}
+  .faq-a p{font-size:0.88rem;color:var(--text-regular)}
+
+  /* ============ 2 栏布局 ============ */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:16px 0;align-items:start}
+  @media(max-width:700px){.two-col{grid-template-columns:1fr}}
+  /* 3 栏 */
+  .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:700px){.three-col{grid-template-columns:1fr}}
+
+  /* ============ 返回顶部 ============ */
+  .btt{
+    position:fixed;bottom:28px;right:28px;
+    width:40px;height:40px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-sm);z-index:200;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--text-muted);text-decoration:none;font-size:1rem;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    transition:border-color 0.25s,color 0.25s,box-shadow 0.25s;
+  }
+  .btt:hover{
+    color:var(--accent);border-color:rgba(var(--accent-rgb),0.5);
+    box-shadow:0 0 20px rgba(167,139,250,0.22);
+  }
+
+  /* ============ 滚动条 ============ */
+  ::-webkit-scrollbar{width:5px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.07);border-radius:3px}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.13)}
+
+  /* ============ 滚动入场动画 ============ */
+  .reveal{
+    opacity:0;transform:translateY(18px);
+    transition:opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+               transform 0.65s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal-d1{transition-delay:0.05s}
+  .reveal-d2{transition-delay:0.10s}
+  .reveal-d3{transition-delay:0.15s}
+  .reveal-d4{transition-delay:0.20s}
+  .reveal-d5{transition-delay:0.25s}
+
+  /* ============ 汉堡菜单 (手机端) ============ */
+  .hamburger{
+    display:none;position:fixed;top:14px;left:14px;z-index:210;
+    width:38px;height:38px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  }
+  .hamburger span{
+    display:block;width:18px;height:2px;background:var(--text-regular);
+    border-radius:1px;transition:transform 0.25s,opacity 0.25s;
+  }
+  .hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+  /* 手机端导航覆盖层 */
+  .nav-overlay{
+    display:none;position:fixed;inset:0;z-index:190;
+    background:rgba(0,0,0,0.5);opacity:0;transition:opacity 0.3s;
+  }
+  .nav-overlay.show{opacity:1}
+
+  /* ============ 响应式 ============ */
+  @media(max-width:768px){
+    .hamburger{display:flex}
+    .nav{
+      transform:translateX(-100%);
+      transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);
+      z-index:200;width:240px;
+    }
+    .nav.mobile-open{transform:translateX(0)}
+    .nav-overlay{display:block;pointer-events:none}
+    .nav-overlay.show{pointer-events:auto}
+    .main{margin-left:0;padding:28px 18px 100px}
+    .hero h1{font-size:1.7rem}
+    .hero-stats{gap:20px}
+    .hero-stat-val{font-size:1.3rem}
+    .steps{flex-direction:column}
+    .step{min-width:auto}
+    .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  }
+
+  /* bento: 早点退到 2 列 */
+  @media(max-width:860px){.bento{grid-template-columns:repeat(2,1fr)}.bento-card.full{grid-column:span 2}}
+  @media(max-width:500px){.bento{grid-template-columns:1fr}.bento-card.full{grid-column:span 1}}
+  @media print{
+    .nav,.btt,.ambient-glow,.starfield,.noise{display:none}
+    .main{margin-left:0}
+    body{background:#fff;color:#111}
+    .glass-card,.bento-card{background:#fff;border:1px solid #ddd;box-shadow:none}
+    .reveal{opacity:1!important;transform:none!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- 汉堡菜单 (手机端) -->
+<button class="hamburger" onclick="document.querySelector('.nav').classList.toggle('mobile-open');document.querySelector('.nav-overlay').classList.toggle('show');this.classList.toggle('open')" aria-label="菜单">
+  <span></span><span></span><span></span>
+</button>
+<div class="nav-overlay" onclick="document.querySelector('.nav').classList.remove('mobile-open');document.querySelector('.nav-overlay').classList.remove('show');document.querySelector('.hamburger').classList.remove('open')"></div>
+
+<!-- 氛围层 -->
+<div class="ambient-glow"></div>
+<canvas class="starfield" id="starfield"></canvas>
+<div class="noise"></div>
+
+<!-- 侧边导航 -->
+<nav class="nav">
+  <div class="nav-logo">明月秋青智脑</div>
+  <div class="nav-ver">A4.x 版本</div>
+  <a href="#hero">智脑是什么</a>
+  <a href="#s2">安装</a>
+  <a href="#s3">五分钟配置</a>
+  <a href="#s4" class="nav-h2">功能漫游</a>
+  <a href="#s5" class="nav-h2">面板指南</a>
+  <a href="#s5-1" class="nav-h3">总览</a>
+  <a href="#s5-2" class="nav-h3">记事本</a>
+  <a href="#s5-3" class="nav-h3">人物志</a>
+  <a href="#s5-4" class="nav-h3">世界</a>
+  <a href="#s5-5" class="nav-h3">玩家</a>
+  <a href="#s5-6" class="nav-h3">设置</a>
+  <a href="#s6" class="nav-h2">设置速查</a>
+  <a href="#s7" class="nav-h2">常见问题</a>
+</nav>
+
+<main class="main">
+<div class="content">
+
+<!-- ================================================================ -->
+<!-- HERO -->
+<!-- ================================================================ -->
+<section id="hero" class="hero reveal">
+  <div class="hero-tag reveal reveal-d1">AI 聊天记忆管家</div>
+  <h1 class="reveal reveal-d1">明月秋青智脑</h1>
+  <p class="hero-sub reveal reveal-d2">
+    你在酒馆和角色聊天，它在后台默默帮你 <strong>记、理、用</strong>。
+    所有的角色记忆、剧情时间线、关系变化，它都打理好了，你只管聊。
+  </p>
+  <div class="hero-stats reveal reveal-d3">
+    <div class="hero-stat"><div class="hero-stat-val">10+</div><div class="hero-stat-label">自动运行模块</div></div>
+    <div class="hero-stat"><div class="hero-stat-val">本地</div><div class="hero-stat-label">数据全在你电脑上</div></div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 智脑是什么 -->
+<!-- ================================================================ -->
+<section class="reveal">
+  <div class="three-col">
+    <div class="glass-card">
+      <h3 style="margin-top:0">记</h3>
+      <p style="font-size:0.88rem;margin:0">每轮对话后自动总结刚才发生了什么、出现了什么新物品和新地点。聊久了还会做一次"大总结"，把整段剧情整理成清晰的时间线，写入每个角色的记忆档案。</p>
+    </div>
+    <div class="glass-card">
+      <h3 style="margin-top:0">理</h3>
+      <p style="font-size:0.88rem;margin:0">分析角色之间的关系变化、每个角色的性格随着剧情怎么演变、你的互动风格有什么特点。还会把故事里出现过的地点和物品串成一个知识网。</p>
+    </div>
+    <div class="glass-card">
+      <h3 style="margin-top:0">用</h3>
+      <p style="font-size:0.88rem;margin:0">每次 AI 要回复你的时候，智脑从记忆库里挑出最相关的内容，悄悄塞进上下文。所以角色聊着聊着就会"记得"你们之前一起经历过的事。</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ================================================================ -->
+<!-- 安装 -->
+<!-- ================================================================ -->
+<section id="s2" class="reveal">
+  <h2>安装</h2>
+  <p style="color:var(--text-muted);font-size:0.9rem">导入一行脚本，30 秒搞定。</p>
+
+  <div class="steps reveal reveal-d1">
+    <div class="step">
+      <span class="step-num">1</span>
+      <span class="step-text">打开酒馆 &rarr; 顶部菜单"扩展管理" &rarr; "酒馆助手" &rarr; "脚本" &rarr; "新建脚本" &rarr; "预设脚本"</span>
+    </div>
+    <div class="step">
+      <span class="step-num">2</span>
+      <span class="step-text">在输入框中粘贴下方地址</span>
+    </div>
+    <div class="step">
+      <span class="step-num">3</span>
+      <span class="step-text">点击确认。稍等几秒，出现紫色的悬浮窗即安装成功</span>
+    </div>
+  </div>
+
+  <div class="url-display reveal reveal-d2">
+    <span class="url-icon">&#8594;</span>
+    import 'https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v4.7.2/dist/index.js'
+  </div>
+
+  <div class="note note-info reveal reveal-d3">
+    <strong>更新版本：</strong>扩展管理 &rarr; 酒馆助手 &rarr; 脚本，找到智脑脚本，点<strong>编辑</strong>，把地址里的 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">@v4.7.2</code> 换成最新版本号即可。
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ================================================================ -->
+<!-- 五分钟上手 -->
+<!-- ================================================================ -->
+<section id="s3" class="reveal">
+  <h2>五分钟配置</h2>
+	  <p style="color:var(--text-muted);font-size:0.9rem">装好之后做三件事：配 API、开向量召回、填一份你的人设。之后就只管聊。</p>
+
+  <div class="reveal reveal-d1">
+    <h3>第一步：配置 API</h3>
+    <p>打开智脑面板 &rarr; 设置 &rarr; 网络与 API &rarr; 管理 API，在这里添加你的 API。智脑的后台任务需要调用模型来生成总结和记忆，推荐按以下分配：</p>
+  </div>
+
+  <div class="tbl-wrap reveal reveal-d1">
+  <table>
+    <tr><th>任务类型</th><th>推荐模型</th><th>说明</th></tr>
+    <tr><td>大总结 / 角色记忆 / 世界推进</td><td>Gemini 3.1 Pro 或 DeepSeek V4 Pro</td><td>需要强理解力，不要用小模型</td></tr>
+    <tr><td>小总结</td><td>Gemini 3 Flash 或 DeepSeek V4 Fast</td><td>轻量任务，快速模型即可</td></tr>
+    <tr><td>其余全部</td><td>Gemini 3.1 Pro</td><td>动态人设、梦呓、关系分析等</td></tr>
+  </table>
+  </div>
+
+  <div class="note note-info reveal reveal-d1" style="margin-top:8px">
+    <strong>调度模式：</strong>在管理 API 页面的"调度模式"中，如果你的渠道支持同时 5 个并发调用，或者你给不同功能分别配了不同渠道的 API，建议开启<strong>并发模式</strong>——多个任务同时跑，体验更流畅。否则选排队模式，任务按顺序逐个执行。
+  </div>
+
+  <div class="reveal reveal-d2">
+    <h3>第二步：开启语义召回</h3>
+    <p>设置 &rarr; 高级功能 &rarr; 召回设置 &rarr; 开启"语义召回"。推荐使用<strong>硅基流动（SiliconFlow）</strong>的免费向量模型 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">BAAI/bge-m3</code>：</p>
+    <ul>
+      <li>去 <a href="https://siliconflow.cn" target="_blank">siliconflow.cn</a> 注册，在 API 密钥页面复制你的 Key</li>
+      <li>回到智脑召回设置，粘贴 Key，模型填 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">BAAI/bge-m3</code></li>
+      <li>地址默认即可（<code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">https://api.siliconflow.cn/v1</code>）</li>
+      <li>填好后点一下<strong>测试连接</strong>，显示成功就配置完了</li>
+    </ul>
+    <p style="color:var(--text-muted);font-size:0.84rem">语义召回能让记忆匹配从"关键词"升级为"含义理解"——比如能认出"打架"和"起冲突"是同一件事。长篇多角色时效果显著，短篇可以先不开。</p>
+  </div>
+
+  <div class="reveal reveal-d3">
+    <h3>第三步：填写你的用户人设</h3>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <span class="step-text">打开智脑面板，点击 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">玩家</code> 标签，进入 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">用户人设</code></span>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <span class="step-text">点击 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">新建</code>，用几句话描述你自己——性格、说话风格、习惯都行，不用写很长</span>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <span class="step-text">点击 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">保存并分析</code>，AI 自动生成你的互动画像。分析完成后角色就能更懂你的风格</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="note note-tip reveal reveal-d4">
+    <strong>完成后：</strong>先正常聊几十轮，再打开智脑面板看看。角色记忆、动态人设、剧情时间线都已经自动生成了。之后只需根据自己的习惯微调设置即可。
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ================================================================ -->
+<!-- 功能漫游 — 非对称 Bento -->
+<!-- ================================================================ -->
+<section id="s4" class="reveal">
+  <h2>功能漫游</h2>
+  <p style="color:var(--text-muted);font-size:0.9rem">14 个模块，大多自动运行。你只管聊，它帮你记住一切。</p>
+
+  <div class="bento">
+
+    <!-- Row 1: 全宽 -->
+    <div class="bento-card full gradient-bg reveal reveal-d1">
+      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 每时每刻</div>
+      <div class="bento-title">正文捕获</div>
+      <div class="bento-desc">抓取 AI 的每条回复，为后续所有总结做准备。它是智脑的"眼睛"——关掉它，一切功能都会失效。</div>
+    </div>
+
+    <!-- Row 2: 3 列 -->
+    <div class="bento-card reveal reveal-d1">
+      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 每轮</div>
+      <div class="bento-title">小总结</div>
+      <div class="bento-desc">每轮对话后自动生成一句摘要：什么时间、在哪、谁在场、发生了什么。</div>
+    </div>
+    <div class="bento-card reveal reveal-d1">
+      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 每 10 轮</div>
+      <div class="bento-title">大总结</div>
+      <div class="bento-desc">积累一定轮数后，把这段时间的剧情整理成完整时间线和每个角色的记忆档案。</div>
+    </div>
+    <div class="bento-card reveal reveal-d2">
+      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 大总结后</div>
+      <div class="bento-title">角色记忆</div>
+      <div class="bento-desc">第一人称记录每个角色和你的互动——核心记忆永久保留，近期记忆自动更新。</div>
+    </div>
+
+    <!-- Row 3: 全宽 -->
+    <div class="bento-card full gradient-bg reveal reveal-d2">
+      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 每 2 轮</div>
+      <div class="bento-title">动态人设</div>
+      <div class="bento-desc">角色性格随剧情实时变化，不再是一成不变的初始人设。温柔角色经历背叛后可能变得多疑——智脑捕捉这些细微变化。</div>
+    </div>
+
+    <!-- Row 4: 3 列 -->
+    <div class="bento-card reveal reveal-d2">
+      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 总结后</div>
+      <div class="bento-title">梦呓画像</div>
+      <div class="bento-desc">AI 分析你的互动模式——你喜欢什么互动风格、怎么表达情绪。</div>
+    </div>
+    <div class="bento-card reveal reveal-d3">
+      <div class="bento-label"><span class="bento-label-dot manual"></span>手动触发</div>
+      <div class="bento-title">关系分析</div>
+      <div class="bento-desc">分析角色间亲密度和关系类型。剧情重大转折时点一下即可。</div>
+    </div>
+    <div class="bento-card reveal reveal-d3">
+      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 每轮</div>
+      <div class="bento-title">知识图谱</div>
+      <div class="bento-desc">地点和物品串成关系网——谁在哪、物品归谁、哪里连着哪里。</div>
+    </div>
+
+    <!-- Row 5: 3 列 -->
+    <div class="bento-card reveal reveal-d3">
+      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · AI 回复前</div>
+      <div class="bento-title">记忆激活</div>
+      <div class="bento-desc">聊天时自动检索和当下对话最相关的旧事件和角色记忆，注入上下文。这就是为什么角色能"回忆"起久远的事。</div>
+    </div>
+    <div class="bento-card reveal reveal-d3">
+      <div class="bento-label"><span class="bento-label-dot optional"></span>可选 · 手动开启</div>
+      <div class="bento-title">语义召回</div>
+      <div class="bento-desc">从"关键词匹配"升级为"含义理解"。长篇多角色才需要。</div>
+    </div>
+    <div class="bento-card reveal reveal-d4">
+      <div class="bento-label"><span class="bento-label-dot optional"></span>可选 · 手动开启</div>
+      <div class="bento-title">世界推进</div>
+      <div class="bento-desc">后台推演不在场角色——她会有自己的生活，不会"冻结"。</div>
+    </div>
+
+    <!-- Row 6: 3 列 -->
+    <div class="bento-card reveal reveal-d4">
+      <div class="bento-label"><span class="bento-label-dot optional"></span>可选 · 手动开启</div>
+      <div class="bento-title">剧情导演</div>
+      <div class="bento-desc">和 AI 讨论大纲，激活后每轮给方向提示，偏离时引导回来。</div>
+    </div>
+    <div class="bento-card reveal reveal-d4">
+      <div class="bento-label"><span class="bento-label-dot manual"></span>手动</div>
+      <div class="bento-title">批量补记忆</div>
+      <div class="bento-desc">导入旧聊天记录后，一口气分段总结所有历史对话。</div>
+    </div>
+    <div class="bento-card reveal reveal-d4">
+      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 默认开启</div>
+      <div class="bento-title">用户人格</div>
+      <div class="bento-desc">填写你的人设，AI 自动分析生成画像，让角色对你的认知更稳定。</div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ================================================================ -->
+<!-- 面板指南 -->
+<!-- ================================================================ -->
+<section id="s5" class="reveal">
+  <h2>面板指南</h2>
+  <p style="color:var(--text-muted);font-size:0.9rem">面板共 6 个顶层标签，大部分内含二级子标签。以下逐个展开。</p>
+</section>
+
+<!-- 总览 -->
+<section id="s5-1" class="reveal" style="margin-top:20px">
+  <div class="glass-card">
+    <h3 style="margin-top:0">总览</h3>
+    <p style="font-size:0.88rem">仪表盘首页，运行状态一览 + 手动操作入口。</p>
+    <div class="two-col" style="margin-top:10px">
+      <div>
+        <p style="font-size:0.84rem;margin-bottom:8px"><strong>统计面板</strong> &mdash; 当前楼层、距下次大总结轮数、累计总结次数、已捕获回复数、世界推进/剧情导演开关状态、动态人设版本、物品库条目数。</p>
+        <p style="font-size:0.84rem;margin-bottom:8px"><strong>活跃角色 & 梦呓状态</strong> &mdash; 当前故事中出场的角色列表，你的互动画像是否已生成。</p>
+        <p style="font-size:0.84rem"><strong>最新大总结</strong> &mdash; 版本号、生成时间、覆盖楼层范围、涉及角色数、事件数。</p>
+      </div>
+      <div>
+        <p style="font-size:0.84rem;margin-bottom:8px"><strong>手动总结</strong> &mdash; 立刻触发一次大总结。适合剧情告一段落时用。</p>
+        <p style="font-size:0.84rem;margin-bottom:8px"><strong>重新总结</strong> &mdash; 上次总结失败或写偏了，用同样内容重试。</p>
+        <p style="font-size:0.84rem;margin-bottom:8px"><strong>自选楼层总结</strong> &mdash; 只总结你指定的某一段聊天。</p>
+        <p style="font-size:0.84rem;margin-bottom:8px"><strong>批量总结</strong> &mdash; 导入旧聊天记录后，选起始结束楼层和每批大小，一口气消化所有历史对话。</p>
+        <p style="font-size:0.84rem"><strong>楼层隐藏管理 & 加载历史总结</strong> &mdash; 排除特定楼层、查看过往版本。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 记事本 -->
+<section id="s5-2" class="reveal" style="margin-top:20px">
+  <div class="glass-card">
+    <h3 style="margin-top:0">记事本</h3>
+    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px">5 个子标签，覆盖所有"记录类"功能。</p>
+    <div class="bento" style="margin:0">
+      <div class="bento-card">
+        <div class="bento-title" style="font-size:0.86rem">小总结</div>
+        <div class="bento-desc">每轮对话的一句话摘要。状态分待生成/就绪/失败/已吸收/已忽略。可编辑时间、地点、在场角色、事件文本，也可手动补总结。</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-title" style="font-size:0.86rem">时光轴</div>
+        <div class="bento-desc">按版本排列事件时间线，支持搜索。每条显示剧情时间、重要度星级、触发关键词。可编辑、删除、手动添加事件。</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-title" style="font-size:0.86rem">物品库</div>
+        <div class="bento-desc">故事中所有物品自动收录。名称、别名、描述、归属、当前状态。可新增、编辑、删除。</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-title" style="font-size:0.86rem">地点库</div>
+        <div class="bento-desc">所有地点自动收录。关键在关系网络：包含子地点、连通路径、所在物品和角色。可编辑关系和新增。</div>
+      </div>
+      <div class="bento-card full gradient-bg">
+        <div class="bento-title" style="font-size:0.86rem">图谱</div>
+        <div class="bento-desc">地点和物品的 SVG 交互关系图。地点圆形节点 + 角色小圆分布周围，玩家特殊高亮。四种连线：包含（实线蓝）、连通（虚线绿）、角色位置（虚线橙）、玩家位置（虚线紫）。支持缩放拖拽，点击节点看详情，自动聚焦玩家位置。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 人物志 -->
+<section id="s5-3" class="reveal" style="margin-top:20px">
+  <div class="glass-card glass-card-accent">
+    <h3 style="margin-top:0">人物志</h3>
+    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px">角色记忆与关系分析，2 个子标签。</p>
+    <div class="two-col" style="margin-top:0">
+      <div>
+        <p style="font-size:0.85rem;margin-bottom:8px"><strong style="color:var(--accent)">角色库</strong></p>
+        <p style="font-size:0.84rem">左侧角色列表 + 态度图标。右侧展示别名、核心记忆（永久）、近期记忆（自动替换）、动态人设（随剧情演变）、激活关键词、NSFW 记忆（折叠）。</p>
+        <p style="font-size:0.84rem"><strong>追忆：</strong>按大总结版本分组展示全部历史记忆，可编辑、升降级（核心 ↔ 近期）。<strong>召回设置：</strong>每角色单独设召回上限；关掉开关后该角色全部核心记忆持续注入。编辑模式下支持合并角色和忽略。</p>
+      </div>
+      <div>
+        <p style="font-size:0.85rem;margin-bottom:8px"><strong style="color:var(--accent)">关系网</strong></p>
+        <p style="font-size:0.84rem">三栏布局：选择角色 → SVG 关系图（实线 = 已分析档案，虚线 = 记忆推断）→ 选中关系详情（类型、来源、状态、张力、禁止误读）。不会自动更新，剧情转折时手动点「分析选中角色」。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 世界 -->
+<section id="s5-4" class="reveal" style="margin-top:20px">
+  <div class="glass-card">
+    <h3 style="margin-top:0">世界</h3>
+    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px">世界观层面，3 个子标签。都需先在设置页开启。</p>
+    <div class="three-col" style="margin-top:0">
+      <div>
+        <p style="font-size:0.85rem;margin-bottom:4px"><strong style="color:var(--accent)">世界推进</strong></p>
+        <p style="font-size:0.82rem">后台推演不在场角色。可设优先推演角色（最多 3 个）和世界书参考。每条记录含各角色的行动卡片（位置、行动、原因、可能相遇）+ 背景事件 + 未解决剧情钩子（黄色标记）。</p>
+      </div>
+      <div>
+        <p style="font-size:0.85rem;margin-bottom:4px"><strong style="color:var(--accent)">剧情导演</strong></p>
+        <p style="font-size:0.82rem">选篇幅后用对话方式和 AI 共创大纲。激活后每轮自动校对，显示进度条和阶段详情。校对结果分正轨/超前/落后/偏离，偏离时给出引导。支持防剧透模式。</p>
+      </div>
+      <div>
+        <p style="font-size:0.85rem;margin-bottom:4px"><strong style="color:var(--accent)">世界书蒸馏</strong></p>
+        <p style="font-size:0.82rem">选世界书和条目 → AI 逐字提取原文归类，不改写只归类。结果分三层（世界观/角色/条目），可逐层展开编辑后保存写入世界书。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 玩家 -->
+<section id="s5-5" class="reveal" style="margin-top:20px">
+  <div class="glass-card">
+    <h3 style="margin-top:0">玩家</h3>
+    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px">关于你的互动画像和人设管理，2 个子标签。</p>
+    <div class="two-col" style="margin-top:0">
+      <div>
+        <p style="font-size:0.85rem;margin-bottom:8px"><strong style="color:var(--accent)">梦呓</strong></p>
+        <p style="font-size:0.84rem">AI 分析你的互动模式，产出"行为翻译手册"——当你做 X 时 AI 应理解为 Y、不误解成 Z。内容涵盖：基础信息、性格调色盘、肢体接触习惯、说话方式、情绪表达（每种情绪 → 表现 → 禁止误读）、按角色分组的交互模式、Roll 偏好。所有字段可手动编辑，支持撤回/恢复/重新分析。</p>
+      </div>
+      <div>
+        <p style="font-size:0.85rem;margin-bottom:8px"><strong style="color:var(--accent)">用户人设</strong></p>
+        <p style="font-size:0.84rem">多人设管理系统。新建、改名、删除、切换激活。编辑区填写你的性格和行为模式，点「保存并分析」AI 自动生成互动画像，「仅保存」跳过分析。分析结果可直接编辑。适合不同世界观切换不同人设。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 设置 -->
+<section id="s5-6" class="reveal" style="margin-top:20px">
+  <div class="glass-card">
+    <h3 style="margin-top:0">设置</h3>
+    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px">总控中心，4 个子标签。</p>
+    <div class="tbl-wrap" style="margin:0;border:none">
+    <table style="font-size:0.84rem">
+      <tr><th style="min-width:90px">子标签</th><th>包含内容</th></tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text-primary);white-space:nowrap">通用</td>
+        <td><strong>9 个功能开关</strong>（用户人格注入、动态人设、正文捕获、记忆激活、关系档案注入、梦呓注入、剧情摘要注入、物品语义召回、小总结）&nbsp;·&nbsp;<strong>间隔参数</strong>（大总结触发轮数 5-50、保留不总结楼层 1-20、动态人设更新频率 3-20）&nbsp;·&nbsp;<strong>界面</strong>（面板大小三档、深色/浅色主题）</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text-primary);white-space:nowrap">高级功能</td>
+        <td><strong>5 个开关</strong>（大总结引导弹窗、事实信息强调、世界推进+间隔、剧情导演+校对间隔）&nbsp;·&nbsp;<strong>召回设置面板</strong>（近期全注入轮数、远期召回上限、语义召回开关+节点/Key/模型/维度/阈值/混合权重/增强重排、测试连接、向量化统计）</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text-primary);white-space:nowrap">网络与 API</td>
+        <td><strong>API 库</strong>（添加/编辑/删除/获取模型列表）&nbsp;·&nbsp;<strong>10 种任务分别分配 API</strong>（大总结/小总结/梦呓/动态人设/角色记忆/关系档案/世界推进/剧情导演/人设分析/世界书蒸馏）&nbsp;·&nbsp;<strong>调度模式</strong>（并发/排队）&nbsp;·&nbsp;<strong>重试</strong>（0-10 次，指数退避）&nbsp;·&nbsp;<strong>API 监听器</strong>（记录每次调用请求和响应）&nbsp;·&nbsp;<strong>代码日志</strong></td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;color:var(--text-primary);white-space:nowrap">数据管理</td>
+        <td><strong>导入/导出</strong> JSON &nbsp;·&nbsp;<strong>选择性删除</strong>（按 5 个数据块勾选：世界数据、大总结数据、关系网、梦呓、小总结，不可撤销）&nbsp;·&nbsp;<strong>已忽略角色列表</strong>（一键恢复）</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ================================================================ -->
+<!-- 设置速查 -->
+<!-- ================================================================ -->
+<section id="s6" class="reveal">
+  <h2>设置速查</h2>
+
+  <h3 id="s6-1">功能开关</h3>
+  <div class="tbl-wrap reveal reveal-d1">
+  <table>
+    <tr><th>开关名称</th><th>默认</th><th>它做什么</th><th>什么时候需要改</th></tr>
+    <tr><td>正文捕获</td><td><span class="tag tag-on">开</span></td><td>抓取 AI 的每条回复</td><td>一般不用关。关了智脑所有功能都会失效</td></tr>
+    <tr><td>小总结</td><td><span class="tag tag-on">开</span></td><td>每轮自动生成一句摘要 + 更新知识图谱</td><td>一般不用关</td></tr>
+    <tr><td>剧情摘要注入</td><td><span class="tag tag-on">开</span></td><td>把大总结的时间线喂给 AI</td><td>想省 token 时可以关，但 AI 会"失忆"</td></tr>
+    <tr><td>记忆激活</td><td><span class="tag tag-on">开</span></td><td>聊天时自动检索相关旧事件和角色记忆</td><td>想省 token 时可以关，但角色会忘事</td></tr>
+    <tr><td>动态人设</td><td><span class="tag tag-on">开</span></td><td>角色性格随剧情变化而更新</td><td>如果想让角色性格永远不变就关掉</td></tr>
+    <tr><td>梦呓注入</td><td><span class="tag tag-on">开</span></td><td>把你的互动偏好告诉 AI，让它更懂你</td><td>一般不用关</td></tr>
+    <tr><td>用户人格注入</td><td><span class="tag tag-on">开</span></td><td>把你的人设分析结果注入 AI 上下文</td><td>没填人设的话关掉也无妨</td></tr>
+    <tr><td>关系档案注入</td><td><span class="tag tag-on">开</span></td><td>角色间的关系信息注入上下文</td><td>多角色互动时建议开着，不容易搞混</td></tr>
+    <tr><td>大总结引导弹窗</td><td><span class="tag tag-on">开</span></td><td>大总结前弹出方向填写框</td><td>不想被打扰就关掉</td></tr>
+    <tr><td>知识图谱自动</td><td><span class="tag tag-on">开</span></td><td>每轮自动更新地点和物品关系网</td><td>一般不用关</td></tr>
+    <tr><td>事实信息强调</td><td><span class="tag tag-off">关</span></td><td>AI 回复前提醒它当前时间、地点、在场角色</td><td>发现 AI 经常搞错时间地点就打开</td></tr>
+    <tr><td>世界推进</td><td><span class="tag tag-off">关</span></td><td>后台推演不在场角色的行动</td><td>想要更丰富的世界线就打开，但会多耗 API</td></tr>
+    <tr><td>剧情导演</td><td><span class="tag tag-off">关</span></td><td>和 AI 讨论大纲 + AI 帮你控剧情走向</td><td>想要有方向感的剧情就打开</td></tr>
+    <tr><td>语义召回</td><td><span class="tag tag-off">关</span></td><td>把记忆匹配从"关键词"升级为"含义理解"</td><td>长剧情、多角色、大长篇时需要。短篇不用</td></tr>
+  </table>
+  </div>
+
+  <h3 id="s6-2">间隔与记忆数量</h3>
+  <div class="tbl-wrap reveal reveal-d2">
+  <table>
+    <tr><th>参数</th><th>默认</th><th>说明</th></tr>
+    <tr><td>大总结触发</td><td>每 10 条 AI 回复</td><td>调大 = 总结更少、省 token，但时间线跨度大</td></tr>
+    <tr><td>动态人设更新</td><td>每 2 条 AI 回复</td><td>角色性格变化跟得上的频率</td></tr>
+    <tr><td>保留不总结</td><td>最近 4 条</td><td>最近的对话太新了，先不纳入总结</td></tr>
+    <tr><td>每角色最少记忆</td><td>4 条</td><td>每次总结至少为每个角色生成这么多条</td></tr>
+    <tr><td>每角色最多记忆</td><td>8 条</td><td>每次总结最多为每个角色生成这么多条</td></tr>
+    <tr><td>近期记忆保留</td><td>最近 3 次总结</td><td>调大 = 角色记得更细但占更多 token</td></tr>
+    <tr><td>近期事件注入</td><td>最近 2 轮大总结</td><td>最近几轮的总结事件全部无条件注入</td></tr>
+    <tr><td>远期事件召回上限</td><td>15 条</td><td>每次最多从历史事件里召回这么多条</td></tr>
+  </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ================================================================ -->
+<!-- 常见问题 — 折叠式 FAQ -->
+<!-- ================================================================ -->
+<section id="s7" class="reveal">
+  <h2>常见问题</h2>
+
+  <div class="faq-item reveal reveal-d1">
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">旧聊天想用智脑怎么办？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>先打开总览，点一下<strong>读取历史楼层</strong>让智脑知道有哪些对话。然后用<strong>批量总结</strong>消化——每批 30 层左右比较合适，楼层特别多的话可以设到每批 50 层。总结完成后，去设置 &rarr; 高级功能 &rarr; 召回设置，点「为旧数据生成向量」，等进度条跑完就行了。小总结不用补。</p></div></div>
+  </div>
+
+  <div class="faq-item reveal reveal-d1">
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">某个分析反复报错怎么办？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>先检查 API 设置——有可能是 API 配置的问题，确认 Key 和地址都没填错。如果不是 API 的问题，去设置 &rarr; 网络与 API，打开<strong>API 监听器</strong>，再触发一次分析，查看 API 的请求和回复。如果回复内容正常、也没有截断，带上你的截图和 API 回复找常陆茉子反馈。</p></div></div>
+  </div>
+
+  <div class="faq-item reveal reveal-d1">
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">批量总结卡住了？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>它会自动重试最多 3 次（每次间隔越来越长）。如果等了一会儿还不动，点中止然后把每批的楼层数量调小一点再试。</p></div></div>
+  </div>
+
+  <div class="faq-item reveal reveal-d2">
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">重 roll 之后智脑的记录会乱吗？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>放心重 roll，智脑会自动处理。重 roll 某条 AI 回复后，对应楼层的小总结会重新生成并替换旧记录，知识图谱也会同步更新。</p></div></div>
+  </div>
+
+  <div class="faq-item reveal reveal-d2">
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">删除了多层聊天，智脑的记录怎么清理？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>打开总览，用<strong>撤回</strong>功能把大总结撤回到删除楼层之前的版本。图谱也有独立的撤回按钮，同样撤回到对应版本。世界推进里的条目需要手动删除——找到被删除楼层范围内的记录，逐条删掉即可。</p></div></div>
+  </div>
+
+  <div class="faq-item reveal reveal-d2">
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">AI 把同一个角色认成了两个人？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>打开人物志 &rarr; 角色库，点<strong>编辑角色</strong>，在角色右侧点击<strong>合并按钮</strong>，选择要合并的目标角色，确认即可。智脑已经内置了别名自动归一化，但偶尔 AI 还是会用完全不同的称呼，手动合并就能解决。</p></div></div>
+  </div>
+
+</section>
+
+<a href="#" class="btt">&uarr;</a>
+
+</div>
+</main>
+
+<!-- ============ 滚动入场 Observer ============ -->
+<script>
+(function(){
+  /* ======= Canvas 星空粒子 (自适应密度 + DPR 高清) ======= */
+  var canvas = document.getElementById('starfield');
+  if(canvas){
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var PARALLAX = 0.25;
+    var scrollY = 0;
+    var targetScrollY = 0;
+    var w, h, dpr;
+
+    function particleCount(){
+      var vw = window.innerWidth;
+      if(vw < 768) return 0;        // 手机端不画
+      if(vw < 1000) return 70;      // 小平板
+      return 120;                    // 桌面
+    }
+
+    function rebuild(){
+      particles.length = 0;
+      var count = particleCount();
+      for(var i=0;i<count;i++){
+        var depth = Math.random()*0.9+0.1;
+        particles.push({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          depth: depth,
+          r: depth*1.8+0.3,
+          baseOpacity: depth*0.45+0.15,
+          opacity: 0,
+          phase: Math.random()*Math.PI*2,
+          twinkleSpeed: (1-depth)*0.0012+0.0003,
+          driftX: (Math.random()-0.5)*0.12*depth,
+          driftY: (Math.random()-0.5)*0.06*depth - 0.03*depth
+        });
+      }
+    }
+
+    function resize(){
+      dpr = window.devicePixelRatio || 1;
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      rebuild();
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    window.addEventListener('scroll', function(){ targetScrollY = window.scrollY; }, {passive:true});
+
+    function draw(){
+      if(particles.length===0){ requestAnimationFrame(draw); return; }
+      ctx.clearRect(0,0,w,h);
+      scrollY = targetScrollY;
+      var now = Date.now();
+      for(var i=0;i<particles.length;i++){
+        var p = particles[i];
+        p.opacity = p.baseOpacity + Math.sin(now*p.twinkleSpeed + p.phase)*0.18;
+        p.x += p.driftX;
+        p.y += p.driftY;
+        if(p.x<0)p.x=w; if(p.x>w)p.x=0;
+        if(p.y<0)p.y=h; if(p.y>h)p.y=0;
+        var renderY = (p.y - scrollY*p.depth*PARALLAX) % h;
+        if(renderY<0) renderY+=h;
+        ctx.beginPath();
+        ctx.arc(p.x, renderY, p.r, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(255,255,255,'+Math.max(0,p.opacity)+')';
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  /* ======= 滚动入场 ======= */
+  var revealTimers = new WeakMap();
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var timer = revealTimers.get(e.target);
+      if(e.isIntersecting){
+        clearTimeout(timer);
+        revealTimers.delete(e.target);
+        e.target.classList.add('visible');
+      } else {
+        if(!timer){
+          timer = setTimeout(function(){
+            e.target.classList.remove('visible');
+            revealTimers.delete(e.target);
+          }, 300);
+          revealTimers.set(e.target, timer);
+        }
+      }
+    });
+  },{threshold:0.1,rootMargin:'0px 0px 0px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+
+  /* ======= 手机端：点击导航链接后关闭侧栏 ======= */
+  document.querySelectorAll('.nav a').forEach(function(a){
+    a.addEventListener('click',function(){
+      document.querySelector('.nav').classList.remove('mobile-open');
+      document.querySelector('.nav-overlay').classList.remove('show');
+      document.querySelector('.hamburger').classList.remove('open');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
