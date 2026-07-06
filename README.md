@@ -1,30 +1,39 @@
-# zhino-script（明月秋青-智脑发布仓库）
+﻿# 更新说明 A4.9.0
 
-明月秋青脚本·秋青（智脑）的发布仓库，通过 jsDelivr CDN 提供给酒馆助手导入。
+- 适用：明月秋青脚本-秋青 A4.9.0
+- 发布时间：2026-07-06
 
-## 给用户使用：导入酒馆助手
+## 本次改动
 
-把 `mingyue-qiuqing-A4.8.9.json` 在酒馆助手「导入脚本」里加载即可。
-该文件是**薄壳入口**——内部只有一行 `import`，从 jsDelivr CDN 拉取真正的脚本本体 `dist/index.js`，刷新即拿到最新版，无需重新下载。
+- 修复聊天变量持久化时序，避免退出再进入后智脑数据丢失。
+- 聊天数据改为只写入当前聊天自己的 chat_metadata.variables.mqzn_chat_data，不再把完整聊天池写进 settings.json。
+- 增加空读启动保护，避免刚进聊天读到空变量后用默认空壳覆盖真实数据。
+- 修复 Pinia 初始化前日志 _s 报错导致的初始化异常。
+- 修复回到酒馆主页后智脑悬浮球不显示的问题。
 
-或使用 URL 方式：把下面链接粘到「从 URL 导入」：
+## 通过 CDN 导入酒馆助手
 
-```
-https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v4.8.9/mingyue-qiuqing-A4.8.9.json
-```
+- 导入文件：mingyue-qiuqing-A4.9.0.json
+- URL 导入：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v4.9.0/mingyue-qiuqing-A4.9.0.json
 
-## 版本列表
+## 版本标记
 
-每个版本对应一个 git tag（`v4.x[.y]`）。
+控制台应显示：
 
-| tag | 入口脚本 | 说明 |
-|-----|---------|------|
-| v4.8.9 | `mingyue-qiuqing-A4.8.9.json` | `UPDATE-A4.8.9.md` |
+`	ext
+chat-vars-persist-20260706-2035-home-fab-guard
+`
+"@ | Set-Content -LiteralPath (Join-Path D:\桌面\游戏\酒馆\A分支\_cdn-release "UPDATE-A4.9.0.md") -Encoding UTF8
+@"
+# 明月秋青脚本 CDN 发布仓
 
-## 仓库结构
+当前版本：A4.9.0
 
-- `dist/index.js` —— webpack 打包后的脚本本体
-- `mingyue-qiuqing-A4.8.9.json` —— 薄壳入口脚本（酒馆助手直接导入的对象）
-- `UPDATE-A*.*.md` —— 各版更新说明
+## 导入
 
-源码不在本仓（只放发布产物）。开发与历史备份保留在作者本地。
+- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v4.9.0/mingyue-qiuqing-A4.9.0.json
+- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v4.9.0/dist/index.js
+
+## 本次重点
+
+A4.9.0 修复聊天变量持久化、settings.json 膨胀、空读覆盖，以及酒馆主页悬浮球显示问题。

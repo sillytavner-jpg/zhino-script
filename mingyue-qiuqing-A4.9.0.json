@@ -1,0 +1,6 @@
+﻿{
+    "type":  "script",
+    "enabled":  true,
+    "name":  "明月秋青脚本-秋青A4.9.0",
+    "content":  "import \u0027https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v4.9.0/dist/index.js\u0027"
+}
