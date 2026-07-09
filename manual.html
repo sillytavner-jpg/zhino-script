@@ -451,20 +451,18 @@
 <!-- 侧边导航 -->
 <nav class="nav">
   <div class="nav-logo">明月秋青智脑</div>
-  <div class="nav-ver">A4.x 版本</div>
+  <div class="nav-ver">A5.x 版本</div>
   <a href="#hero">智脑是什么</a>
   <a href="#s2">安装</a>
   <a href="#s3">五分钟配置</a>
   <a href="#s4" class="nav-h2">功能漫游</a>
-  <a href="#s5" class="nav-h2">面板指南</a>
-  <a href="#s5-1" class="nav-h3">总览</a>
-  <a href="#s5-2" class="nav-h3">记事本</a>
-  <a href="#s5-3" class="nav-h3">人物志</a>
-  <a href="#s5-4" class="nav-h3">世界</a>
-  <a href="#s5-5" class="nav-h3">玩家</a>
-  <a href="#s5-6" class="nav-h3">设置</a>
-  <a href="#s6" class="nav-h2">设置速查</a>
-  <a href="#s7" class="nav-h2">常见问题</a>
+  <a href="#s5" class="nav-h2">重点详解</a>
+  <a href="#s5-1" class="nav-h3">梦呓</a>
+  <a href="#s5-2" class="nav-h3">知识图谱</a>
+  <a href="#s5-3" class="nav-h3">世界推进</a>
+  <a href="#s5-4" class="nav-h3">角色记忆</a>
+  <a href="#s5-5" class="nav-h3">记忆召回</a>
+  <a href="#s6" class="nav-h2">常见问题</a>
 </nav>
 
 <main class="main">
@@ -481,7 +479,7 @@
     所有的角色记忆、剧情时间线、关系变化，它都打理好了，你只管聊。
   </p>
   <div class="hero-stats reveal reveal-d3">
-    <div class="hero-stat"><div class="hero-stat-val">10+</div><div class="hero-stat-label">自动运行模块</div></div>
+    <div class="hero-stat"><div class="hero-stat-val">16+</div><div class="hero-stat-label">功能模块</div></div>
     <div class="hero-stat"><div class="hero-stat-val">本地</div><div class="hero-stat-label">数据全在你电脑上</div></div>
   </div>
 </section>
@@ -497,7 +495,7 @@
     </div>
     <div class="glass-card">
       <h3 style="margin-top:0">理</h3>
-      <p style="font-size:0.88rem;margin:0">分析角色之间的关系变化、每个角色的性格随着剧情怎么演变、你的互动风格有什么特点。还会把故事里出现过的地点和物品串成一个知识网。</p>
+      <p style="font-size:0.88rem;margin:0">分析角色之间的关系变化、每个角色的性格随着剧情怎么演变、你的互动风格有什么特点。还会把故事里出现过的地点和物品串成一个知识网，后台推演不在场角色的独立行动。</p>
     </div>
     <div class="glass-card">
       <h3 style="margin-top:0">用</h3>
@@ -532,11 +530,11 @@
 
   <div class="url-display reveal reveal-d2">
     <span class="url-icon">&#8594;</span>
-    import 'https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v4.7.2/dist/index.js'
+    import 'https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.0.2/dist/index.js'
   </div>
 
   <div class="note note-info reveal reveal-d3">
-    <strong>更新版本：</strong>扩展管理 &rarr; 酒馆助手 &rarr; 脚本，找到智脑脚本，点<strong>编辑</strong>，把地址里的 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">@v4.7.2</code> 换成最新版本号即可。
+    <strong>更新版本：</strong>扩展管理 &rarr; 酒馆助手 &rarr; 脚本，找到智脑脚本，点<strong>编辑</strong>，把地址里的 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">@v5.0.2</code> 换成最新版本号即可。
   </div>
 </section>
 
@@ -557,8 +555,8 @@
   <div class="tbl-wrap reveal reveal-d1">
   <table>
     <tr><th>任务类型</th><th>推荐模型</th><th>说明</th></tr>
-    <tr><td>大总结 / 角色记忆 / 世界推进</td><td>Gemini 3.1 Pro 或 DeepSeek V4 Pro</td><td>需要强理解力，不要用小模型</td></tr>
-    <tr><td>小总结</td><td>Gemini 3 Flash 或 DeepSeek V4 Fast</td><td>轻量任务，快速模型即可</td></tr>
+    <tr><td>大总结 / 角色记忆</td><td>Gemini 3.1 Pro 或 DeepSeek V4 Pro</td><td>需要强理解力，不要用小模型</td></tr>
+    <tr><td>小总结 / 世界推进</td><td>Gemini 3 Flash 或 DeepSeek V4 Fast</td><td>轻量任务，快速模型即可</td></tr>
     <tr><td>其余全部</td><td>Gemini 3.1 Pro</td><td>动态人设、梦呓、关系分析等</td></tr>
   </table>
   </div>
@@ -569,7 +567,7 @@
 
   <div class="reveal reveal-d2">
     <h3>第二步：开启语义召回</h3>
-    <p>设置 &rarr; 高级功能 &rarr; 召回设置 &rarr; 开启"语义召回"。推荐使用<strong>硅基流动（SiliconFlow）</strong>的免费向量模型 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">BAAI/bge-m3</code>：</p>
+    <p>设置 &rarr; 网络与 API &rarr; 开启"语义召回"。推荐使用<strong>硅基流动（SiliconFlow）</strong>的免费向量模型 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">BAAI/bge-m3</code>：</p>
     <ul>
       <li>去 <a href="https://siliconflow.cn" target="_blank">siliconflow.cn</a> 注册，在 API 密钥页面复制你的 Key</li>
       <li>回到智脑召回设置，粘贴 Key，模型填 <code style="background:rgba(167,139,250,0.12);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:0.82rem">BAAI/bge-m3</code></li>
@@ -613,14 +611,7 @@
 
   <div class="bento">
 
-    <!-- Row 1: 全宽 -->
-    <div class="bento-card full gradient-bg reveal reveal-d1">
-      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 每时每刻</div>
-      <div class="bento-title">正文捕获</div>
-      <div class="bento-desc">抓取 AI 的每条回复，为后续所有总结做准备。它是智脑的"眼睛"——关掉它，一切功能都会失效。</div>
-    </div>
-
-    <!-- Row 2: 3 列 -->
+    <!-- Row 1: 3 列 -->
     <div class="bento-card reveal reveal-d1">
       <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 每轮</div>
       <div class="bento-title">小总结</div>
@@ -637,62 +628,72 @@
       <div class="bento-desc">第一人称记录每个角色和你的互动——核心记忆永久保留，近期记忆自动更新。</div>
     </div>
 
-    <!-- Row 3: 全宽 -->
+    <!-- Row 2: 全宽 -->
     <div class="bento-card full gradient-bg reveal reveal-d2">
       <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 每 2 轮</div>
       <div class="bento-title">动态人设</div>
-      <div class="bento-desc">角色性格随剧情实时变化，不再是一成不变的初始人设。温柔角色经历背叛后可能变得多疑——智脑捕捉这些细微变化。</div>
+      <div class="bento-desc">角色性格随剧情实时变化，不再是一成不变的初始人设。温柔角色经历背叛后可能变得多疑——智脑捕捉这些细微变化，以第一人称写出角色最新状态。</div>
+    </div>
+
+    <!-- Row 3: 世界推进 — 全宽重点 -->
+    <div class="bento-card full gradient-bg reveal reveal-d2">
+      <div class="bento-label"><span class="bento-label-dot optional"></span>可选开启 · 每 2 轮</div>
+      <div class="bento-title">世界推进 <span style="font-weight:400;font-size:0.82rem;color:var(--text-muted)">— 图谱 + 角色记忆联动</span></div>
+      <div class="bento-desc">
+        后台精推<strong>不在场角色</strong>的独立行动，防止她们在故事中"冻结"。<br>
+        <strong>三向联动：</strong>① 输入侧从<strong>知识图谱</strong>取角色位置/物品/路径，从<strong>角色记忆</strong>取既往事实和目标 → ② AI 生成第一人称近期记忆 + 可选入场引导(level 0-3) → ③ 输出注入上下文（"场外角色动态"）、下次大总结自动合并进角色记忆、小总结消费推演材料辅助判定场景。
+      </div>
     </div>
 
     <!-- Row 4: 3 列 -->
     <div class="bento-card reveal reveal-d2">
-      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 总结后</div>
-      <div class="bento-title">梦呓画像</div>
-      <div class="bento-desc">AI 分析你的互动模式——你喜欢什么互动风格、怎么表达情绪。</div>
+      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · AI 回复前</div>
+      <div class="bento-title">记忆激活</div>
+      <div class="bento-desc">每次 AI 回复前，从记忆库中检索最相关的旧事件、角色记忆、世界推进记忆，注入上下文。角色因此能"回忆"起久远之事。</div>
     </div>
     <div class="bento-card reveal reveal-d3">
-      <div class="bento-label"><span class="bento-label-dot manual"></span>手动触发</div>
-      <div class="bento-title">关系分析</div>
-      <div class="bento-desc">分析角色间亲密度和关系类型。剧情重大转折时点一下即可。</div>
+      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 每 10 轮</div>
+      <div class="bento-title">梦呓分析</div>
+      <div class="bento-desc">AI 分析你的互动模式——喜欢什么互动风格、怎么表达情绪、和每个角色的互动习惯。生成"行为翻译手册"告诉 AI 如何正确理解你。</div>
     </div>
     <div class="bento-card reveal reveal-d3">
       <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 每轮</div>
       <div class="bento-title">知识图谱</div>
-      <div class="bento-desc">地点和物品串成关系网——谁在哪、物品归谁、哪里连着哪里。</div>
+      <div class="bento-desc">地点和物品串成关系网——谁在哪、物品归谁、哪里连着哪里。搭车小总结自动维护，一趟 API 不额外耗 token。面板可可视化浏览和手动编辑。</div>
     </div>
 
     <!-- Row 5: 3 列 -->
     <div class="bento-card reveal reveal-d3">
-      <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · AI 回复前</div>
-      <div class="bento-title">记忆激活</div>
-      <div class="bento-desc">聊天时自动检索和当下对话最相关的旧事件和角色记忆，注入上下文。这就是为什么角色能"回忆"起久远的事。</div>
-    </div>
-    <div class="bento-card reveal reveal-d3">
-      <div class="bento-label"><span class="bento-label-dot optional"></span>可选 · 手动开启</div>
-      <div class="bento-title">语义召回</div>
-      <div class="bento-desc">从"关键词匹配"升级为"含义理解"。长篇多角色才需要。</div>
+      <div class="bento-label"><span class="bento-label-dot manual"></span>手动触发</div>
+      <div class="bento-title">关系分析</div>
+      <div class="bento-desc">分析角色间亲密度和关系类型，生成档案自动注入上下文。剧情重大转折时点一下即可，不会自动更新。</div>
     </div>
     <div class="bento-card reveal reveal-d4">
       <div class="bento-label"><span class="bento-label-dot optional"></span>可选 · 手动开启</div>
-      <div class="bento-title">世界推进</div>
-      <div class="bento-desc">后台推演不在场角色——她会有自己的生活，不会"冻结"。</div>
+      <div class="bento-title">语义召回</div>
+      <div class="bento-desc">把记忆匹配从"关键词子串命中"升级为"语义相似度理解"。长篇多角色时开启效果显著，依赖外部 embedding API。</div>
+    </div>
+    <div class="bento-card reveal reveal-d4">
+      <div class="bento-label"><span class="bento-label-dot optional"></span>可选 · 手动开启</div>
+      <div class="bento-title">剧情导演</div>
+      <div class="bento-desc">和 AI 讨论大纲 → 激活 → 每 N 轮自动校对是否偏离大纲，给出方向提示。支持防剧透模式，引导是建议不是命令。</div>
     </div>
 
     <!-- Row 6: 3 列 -->
     <div class="bento-card reveal reveal-d4">
-      <div class="bento-label"><span class="bento-label-dot optional"></span>可选 · 手动开启</div>
-      <div class="bento-title">剧情导演</div>
-      <div class="bento-desc">和 AI 讨论大纲，激活后每轮给方向提示，偏离时引导回来。</div>
-    </div>
-    <div class="bento-card reveal reveal-d4">
       <div class="bento-label"><span class="bento-label-dot manual"></span>手动</div>
       <div class="bento-title">批量补记忆</div>
-      <div class="bento-desc">导入旧聊天记录后，一口气分段总结所有历史对话。</div>
+      <div class="bento-desc">导入旧聊天记录后，在总览或时光轴中一口气分段总结所有历史对话，补全角色记忆和时间线。</div>
     </div>
     <div class="bento-card reveal reveal-d4">
       <div class="bento-label"><span class="bento-label-dot auto"></span>自动 · 默认开启</div>
       <div class="bento-title">用户人格</div>
-      <div class="bento-desc">填写你的人设，AI 自动分析生成画像，让角色对你的认知更稳定。</div>
+      <div class="bento-desc">填写你的人设，AI 自动分析生成画像，注入上下文让角色对你的性格和行为模式有稳定的认知。</div>
+    </div>
+    <div class="bento-card reveal reveal-d5">
+      <div class="bento-label"><span class="bento-label-dot optional"></span>可选开启</div>
+      <div class="bento-title">NSFW 隔离层</div>
+      <div class="bento-desc">NSFW 记忆/梦呓/动态人设单独存储注入，与日常认知隔离，避免污染角色对你的正常认知。</div>
     </div>
 
   </div>
@@ -701,195 +702,215 @@
 <hr class="divider">
 
 <!-- ================================================================ -->
-<!-- 面板指南 -->
+<!-- 重点功能详解 -->
 <!-- ================================================================ -->
 <section id="s5" class="reveal">
-  <h2>面板指南</h2>
-  <p style="color:var(--text-muted);font-size:0.9rem">面板共 6 个顶层标签，大部分内含二级子标签。以下逐个展开。</p>
+  <h2>重点功能详解</h2>
+  <p style="color:var(--text-muted);font-size:0.9rem">深入了解五个核心模块的运作机制。</p>
 </section>
 
-<!-- 总览 -->
+<!-- 梦呓 -->
 <section id="s5-1" class="reveal" style="margin-top:20px">
-  <div class="glass-card">
-    <h3 style="margin-top:0">总览</h3>
-    <p style="font-size:0.88rem">仪表盘首页，运行状态一览 + 手动操作入口。</p>
+  <div class="glass-card glass-card-accent">
+    <h3 style="margin-top:0">梦呓 — 行为翻译手册</h3>
+    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:8px">"AIRP 就像一场梦，梦中的呓语。"梦呓不是性格总结，而是一份"行为翻译手册"——告诉 AI 当你做了某个动作时，应该理解成什么、<strong>不要误解成什么</strong>。</p>
+
     <div class="two-col" style="margin-top:10px">
       <div>
-        <p style="font-size:0.84rem;margin-bottom:8px"><strong>统计面板</strong> &mdash; 当前楼层、距下次大总结轮数、累计总结次数、已捕获回复数、世界推进/剧情导演开关状态、动态人设版本、物品库条目数。</p>
-        <p style="font-size:0.84rem;margin-bottom:8px"><strong>活跃角色 & 梦呓状态</strong> &mdash; 当前故事中出场的角色列表，你的互动画像是否已生成。</p>
-        <p style="font-size:0.84rem"><strong>最新大总结</strong> &mdash; 版本号、生成时间、覆盖楼层范围、涉及角色数、事件数。</p>
+        <p style="font-size:0.84rem;margin-bottom:6px"><strong>分析内容</strong></p>
+        <ul style="font-size:0.82rem;margin:0;padding-left:16px">
+          <li><strong>基础信息：</strong>姓名/性别/年龄/身份，从对话中能推断的部分</li>
+          <li><strong>性格调色盘：</strong>底色、主色调、当前压力值——AI 用来理解你当下的情绪基调</li>
+          <li><strong>肢体接触习惯：</strong>对不同角色的接触方式、频率、触发条件</li>
+          <li><strong>说话方式：</strong>句式特征、语气偏好、典型回应模式</li>
+          <li><strong>情绪表达：</strong>每种情绪 → 你的外在表现 → AI 禁止误读成什么</li>
+          <li><strong>按角色分组：</strong>你对每个角色的独特互动模式</li>
+          <li><strong>Roll 偏好：</strong>你倾向于哪种叙事风格</li>
+        </ul>
       </div>
       <div>
-        <p style="font-size:0.84rem;margin-bottom:8px"><strong>手动总结</strong> &mdash; 立刻触发一次大总结。适合剧情告一段落时用。</p>
-        <p style="font-size:0.84rem;margin-bottom:8px"><strong>重新总结</strong> &mdash; 上次总结失败或写偏了，用同样内容重试。</p>
-        <p style="font-size:0.84rem;margin-bottom:8px"><strong>自选楼层总结</strong> &mdash; 只总结你指定的某一段聊天。</p>
-        <p style="font-size:0.84rem;margin-bottom:8px"><strong>批量总结</strong> &mdash; 导入旧聊天记录后，选起始结束楼层和每批大小，一口气消化所有历史对话。</p>
-        <p style="font-size:0.84rem"><strong>楼层隐藏管理 & 加载历史总结</strong> &mdash; 排除特定楼层、查看过往版本。</p>
+        <p style="font-size:0.84rem;margin-bottom:6px"><strong>运作机制</strong></p>
+        <ul style="font-size:0.82rem;margin:0;padding-left:16px">
+          <li><strong>触发：</strong>每 10 轮 AI 回复后独立触发，不依赖大总结</li>
+          <li><strong>分析来源：</strong>聊天中你所有的用户输入记录 + 你填写的用户人设</li>
+          <li><strong>注入位置：</strong>用户消息中、AI 正文生成之前——让 AI 在写回复前先"读懂你"</li>
+          <li><strong>注入策略：</strong>按当前在场角色条件注入，不在场的角色交互模式会被跳过</li>
+          <li><strong>可编辑：</strong>面板中所有字段可手动修改，支持撤回/恢复</li>
+          <li><strong>防污染：</strong>NSFW 梦呓单独存储，只在标记为 NSFW 的对话中注入</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 记事本 -->
+<!-- 知识图谱 -->
 <section id="s5-2" class="reveal" style="margin-top:20px">
   <div class="glass-card">
-    <h3 style="margin-top:0">记事本</h3>
-    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px">5 个子标签，覆盖所有"记录类"功能。</p>
-    <div class="bento" style="margin:0">
-      <div class="bento-card">
-        <div class="bento-title" style="font-size:0.86rem">小总结</div>
-        <div class="bento-desc">每轮对话的一句话摘要。状态分待生成/就绪/失败/已吸收/已忽略。可编辑时间、地点、在场角色、事件文本，也可手动补总结。</div>
-      </div>
-      <div class="bento-card">
-        <div class="bento-title" style="font-size:0.86rem">时光轴</div>
-        <div class="bento-desc">按版本排列事件时间线，支持搜索。每条显示剧情时间、重要度星级、触发关键词。可编辑、删除、手动添加事件。</div>
-      </div>
-      <div class="bento-card">
-        <div class="bento-title" style="font-size:0.86rem">物品库</div>
-        <div class="bento-desc">故事中所有物品自动收录。名称、别名、描述、归属、当前状态。可新增、编辑、删除。</div>
-      </div>
-      <div class="bento-card">
-        <div class="bento-title" style="font-size:0.86rem">地点库</div>
-        <div class="bento-desc">所有地点自动收录。关键在关系网络：包含子地点、连通路径、所在物品和角色。可编辑关系和新增。</div>
-      </div>
-      <div class="bento-card full gradient-bg">
-        <div class="bento-title" style="font-size:0.86rem">图谱</div>
-        <div class="bento-desc">地点和物品的 SVG 交互关系图。地点圆形节点 + 角色小圆分布周围，玩家特殊高亮。四种连线：包含（实线蓝）、连通（虚线绿）、角色位置（虚线橙）、玩家位置（虚线紫）。支持缩放拖拽，点击节点看详情，自动聚焦玩家位置。</div>
-      </div>
-    </div>
-  </div>
-</section>
+    <h3 style="margin-top:0">知识图谱 — 地点 + 物品 + 人物关系网</h3>
+    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:8px">故事世界的结构化映射。不用单独调用 API，搭车小总结顺带维护。</p>
 
-<!-- 人物志 -->
-<section id="s5-3" class="reveal" style="margin-top:20px">
-  <div class="glass-card glass-card-accent">
-    <h3 style="margin-top:0">人物志</h3>
-    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px">角色记忆与关系分析，2 个子标签。</p>
-    <div class="two-col" style="margin-top:0">
-      <div>
-        <p style="font-size:0.85rem;margin-bottom:8px"><strong style="color:var(--accent)">角色库</strong></p>
-        <p style="font-size:0.84rem">左侧角色列表 + 态度图标。右侧展示别名、核心记忆（永久）、近期记忆（自动替换）、动态人设（随剧情演变）、激活关键词、NSFW 记忆（折叠）。</p>
-        <p style="font-size:0.84rem"><strong>追忆：</strong>按大总结版本分组展示全部历史记忆，可编辑、升降级（核心 ↔ 近期）。<strong>召回设置：</strong>每角色单独设召回上限；关掉开关后该角色全部核心记忆持续注入。编辑模式下支持合并角色和忽略。</p>
-      </div>
-      <div>
-        <p style="font-size:0.85rem;margin-bottom:8px"><strong style="color:var(--accent)">关系网</strong></p>
-        <p style="font-size:0.84rem">三栏布局：选择角色 → SVG 关系图（实线 = 已分析档案，虚线 = 记忆推断）→ 选中关系详情（类型、来源、状态、张力、禁止误读）。不会自动更新，剧情转折时手动点「分析选中角色」。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 世界 -->
-<section id="s5-4" class="reveal" style="margin-top:20px">
-  <div class="glass-card">
-    <h3 style="margin-top:0">世界</h3>
-    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px">世界观层面，3 个子标签。都需先在设置页开启。</p>
-    <div class="three-col" style="margin-top:0">
-      <div>
-        <p style="font-size:0.85rem;margin-bottom:4px"><strong style="color:var(--accent)">世界推进</strong></p>
-        <p style="font-size:0.82rem">后台推演不在场角色。可设优先推演角色（最多 3 个）和世界书参考。每条记录含各角色的行动卡片（位置、行动、原因、可能相遇）+ 背景事件 + 未解决剧情钩子（黄色标记）。</p>
-      </div>
-      <div>
-        <p style="font-size:0.85rem;margin-bottom:4px"><strong style="color:var(--accent)">剧情导演</strong></p>
-        <p style="font-size:0.82rem">选篇幅后用对话方式和 AI 共创大纲。激活后每轮自动校对，显示进度条和阶段详情。校对结果分正轨/超前/落后/偏离，偏离时给出引导。支持防剧透模式。</p>
-      </div>
-      <div>
-        <p style="font-size:0.85rem;margin-bottom:4px"><strong style="color:var(--accent)">世界书蒸馏</strong></p>
-        <p style="font-size:0.82rem">选世界书和条目 → AI 逐字提取原文归类，不改写只归类。结果分三层（世界观/角色/条目），可逐层展开编辑后保存写入世界书。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 玩家 -->
-<section id="s5-5" class="reveal" style="margin-top:20px">
-  <div class="glass-card">
-    <h3 style="margin-top:0">玩家</h3>
-    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px">关于你的互动画像和人设管理，2 个子标签。</p>
-    <div class="two-col" style="margin-top:0">
-      <div>
-        <p style="font-size:0.85rem;margin-bottom:8px"><strong style="color:var(--accent)">梦呓</strong></p>
-        <p style="font-size:0.84rem">AI 分析你的互动模式，产出"行为翻译手册"——当你做 X 时 AI 应理解为 Y、不误解成 Z。内容涵盖：基础信息、性格调色盘、肢体接触习惯、说话方式、情绪表达（每种情绪 → 表现 → 禁止误读）、按角色分组的交互模式、Roll 偏好。所有字段可手动编辑，支持撤回/恢复/重新分析。</p>
-      </div>
-      <div>
-        <p style="font-size:0.85rem;margin-bottom:8px"><strong style="color:var(--accent)">用户人设</strong></p>
-        <p style="font-size:0.84rem">多人设管理系统。新建、改名、删除、切换激活。编辑区填写你的性格和行为模式，点「保存并分析」AI 自动生成互动画像，「仅保存」跳过分析。分析结果可直接编辑。适合不同世界观切换不同人设。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 设置 -->
-<section id="s5-6" class="reveal" style="margin-top:20px">
-  <div class="glass-card">
-    <h3 style="margin-top:0">设置</h3>
-    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:12px">总控中心，4 个子标签。</p>
-    <div class="tbl-wrap" style="margin:0;border:none">
-    <table style="font-size:0.84rem">
-      <tr><th style="min-width:90px">子标签</th><th>包含内容</th></tr>
+    <div class="tbl-wrap" style="margin:8px 0">
+    <table style="font-size:0.82rem">
+      <tr><th style="min-width:60px">类型</th><th>节点</th><th>边</th><th>说明</th></tr>
       <tr>
-        <td style="font-weight:600;color:var(--text-primary);white-space:nowrap">通用</td>
-        <td><strong>9 个功能开关</strong>（用户人格注入、动态人设、正文捕获、记忆激活、关系档案注入、梦呓注入、剧情摘要注入、物品语义召回、小总结）&nbsp;·&nbsp;<strong>间隔参数</strong>（大总结触发轮数 5-50、保留不总结楼层 1-20、动态人设更新频率 3-20）&nbsp;·&nbsp;<strong>界面</strong>（面板大小三档、深色/浅色主题）</td>
+        <td style="font-weight:600;color:var(--accent)">地点</td>
+        <td>名称、简述、别名、语义向量</td>
+        <td>contains（包含子地点）<br>connected（连通 + 路径描述）</td>
+        <td>每轮小总结自动发现新地点、更新位置关系</td>
       </tr>
       <tr>
-        <td style="font-weight:600;color:var(--text-primary);white-space:nowrap">高级功能</td>
-        <td><strong>5 个开关</strong>（大总结引导弹窗、事实信息强调、世界推进+间隔、剧情导演+校对间隔）&nbsp;·&nbsp;<strong>召回设置面板</strong>（近期全注入轮数、远期召回上限、语义召回开关+节点/Key/模型/维度/阈值/混合权重/增强重排、测试连接、向量化统计）</td>
+        <td style="font-weight:600;color:var(--accent)">物品</td>
+        <td>名称、简述、数量、别名、是否已消耗</td>
+        <td>belongs_to（归属角色/地点）</td>
+        <td>消耗标记后不再作为当前可用物品注入，避免"已经喝掉的药水"反复出现</td>
       </tr>
       <tr>
-        <td style="font-weight:600;color:var(--text-primary);white-space:nowrap">网络与 API</td>
-        <td><strong>API 库</strong>（添加/编辑/删除/获取模型列表）&nbsp;·&nbsp;<strong>10 种任务分别分配 API</strong>（大总结/小总结/梦呓/动态人设/角色记忆/关系档案/世界推进/剧情导演/人设分析/世界书蒸馏）&nbsp;·&nbsp;<strong>调度模式</strong>（并发/排队）&nbsp;·&nbsp;<strong>重试</strong>（0-10 次，指数退避）&nbsp;·&nbsp;<strong>API 监听器</strong>（记录每次调用请求和响应）&nbsp;·&nbsp;<strong>代码日志</strong></td>
-      </tr>
-      <tr>
-        <td style="font-weight:600;color:var(--text-primary);white-space:nowrap">数据管理</td>
-        <td><strong>导入/导出</strong> JSON &nbsp;·&nbsp;<strong>选择性删除</strong>（按 5 个数据块勾选：世界数据、大总结数据、关系网、梦呓、小总结，不可撤销）&nbsp;·&nbsp;<strong>已忽略角色列表</strong>（一键恢复）</td>
+        <td style="font-weight:600;color:var(--accent)">人物</td>
+        <td>名称、当前位置、别名</td>
+        <td>位置映射（不在边表，单独记录）</td>
+        <td>跟踪每个角色当前所在地点，世界推进和场景注入都依赖它</td>
       </tr>
     </table>
     </div>
+
+    <div style="margin-top:8px">
+      <p style="font-size:0.84rem;margin-bottom:6px"><strong>关键机制</strong></p>
+      <ul style="font-size:0.82rem;margin:0;padding-left:16px">
+        <li><strong>搭车更新：</strong>小总结的 AI 调用同时输出 graphDiff（add/update/delete），智脑按 id 去重合并进主图。一趟 API 两份产物。</li>
+        <li><strong>版本快照：</strong>每次图谱变更记录版本号+对应楼层。最多保留 6 张图谱快照，超出后自动淘汰最旧版本。重 roll 某楼层后，该楼层及之后的图谱版本被自动截断，用楼层前状态重建——因此最多支持退回 5 轮对话。</li>
+        <li><strong>语义向量：</strong>地点和物品可选生成 embedding 向量，用于召回时按含义匹配（而非仅按名称）。</li>
+        <li><strong>上下文注入：</strong>每次 AI 回复前，按 6 层优先级注入图谱：玩家可用物品 → 同场角色物品 → 当前地点物品 → 当前地点+相连地点 → 玩家输入提及地点物品 → 正文相关召回。</li>
+        <li><strong>SVG 可视化：</strong>面板中可交互浏览，地点圆形节点 + 角色小圆分布周围，四种连线颜色区分关系类型。</li>
+      </ul>
+    </div>
   </div>
 </section>
 
-<hr class="divider">
+<!-- 世界推进 -->
+<section id="s5-3" class="reveal" style="margin-top:20px">
+  <div class="glass-card glass-card-accent">
+    <h3 style="margin-top:0">世界推进 — 不在场角色的独立生命</h3>
+    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:8px">防止故事世界"冻结"——主角在 A 地推进剧情时，B 地的角色也有自己的生活。</p>
 
-<!-- ================================================================ -->
-<!-- 设置速查 -->
-<!-- ================================================================ -->
-<section id="s6" class="reveal">
-  <h2>设置速查</h2>
+    <div class="note note-warn" style="margin-bottom:12px">
+      <strong>前置条件：</strong>世界推进<strong>必须</strong>与以下模块同时开启才能正常工作：① <strong>小总结</strong>（提供图谱数据和在场角色判定）；② <strong>角色记忆</strong>（提供角色的既往事实和态度）；③ <strong>知识图谱自动</strong>（提供角色位置、物品、连通路径）。此外，推演前需在「世界」面板中<strong>手动选择绑定的世界书条目</strong>——条目中应包含不在场角色的设定信息，否则 AI 推演缺乏角色依据。
+    </div>
 
-  <h3 id="s6-1">功能开关</h3>
-  <div class="tbl-wrap reveal reveal-d1">
-  <table>
-    <tr><th>开关名称</th><th>默认</th><th>它做什么</th><th>什么时候需要改</th></tr>
-    <tr><td>正文捕获</td><td><span class="tag tag-on">开</span></td><td>抓取 AI 的每条回复</td><td>一般不用关。关了智脑所有功能都会失效</td></tr>
-    <tr><td>小总结</td><td><span class="tag tag-on">开</span></td><td>每轮自动生成一句摘要 + 更新知识图谱</td><td>一般不用关</td></tr>
-    <tr><td>剧情摘要注入</td><td><span class="tag tag-on">开</span></td><td>把大总结的时间线喂给 AI</td><td>想省 token 时可以关，但 AI 会"失忆"</td></tr>
-    <tr><td>记忆激活</td><td><span class="tag tag-on">开</span></td><td>聊天时自动检索相关旧事件和角色记忆</td><td>想省 token 时可以关，但角色会忘事</td></tr>
-    <tr><td>动态人设</td><td><span class="tag tag-on">开</span></td><td>角色性格随剧情变化而更新</td><td>如果想让角色性格永远不变就关掉</td></tr>
-    <tr><td>梦呓注入</td><td><span class="tag tag-on">开</span></td><td>把你的互动偏好告诉 AI，让它更懂你</td><td>一般不用关</td></tr>
-    <tr><td>用户人格注入</td><td><span class="tag tag-on">开</span></td><td>把你的人设分析结果注入 AI 上下文</td><td>没填人设的话关掉也无妨</td></tr>
-    <tr><td>关系档案注入</td><td><span class="tag tag-on">开</span></td><td>角色间的关系信息注入上下文</td><td>多角色互动时建议开着，不容易搞混</td></tr>
-    <tr><td>大总结引导弹窗</td><td><span class="tag tag-on">开</span></td><td>大总结前弹出方向填写框</td><td>不想被打扰就关掉</td></tr>
-    <tr><td>知识图谱自动</td><td><span class="tag tag-on">开</span></td><td>每轮自动更新地点和物品关系网</td><td>一般不用关</td></tr>
-    <tr><td>事实信息强调</td><td><span class="tag tag-off">关</span></td><td>AI 回复前提醒它当前时间、地点、在场角色</td><td>发现 AI 经常搞错时间地点就打开</td></tr>
-    <tr><td>世界推进</td><td><span class="tag tag-off">关</span></td><td>后台推演不在场角色的行动</td><td>想要更丰富的世界线就打开，但会多耗 API</td></tr>
-    <tr><td>剧情导演</td><td><span class="tag tag-off">关</span></td><td>和 AI 讨论大纲 + AI 帮你控剧情走向</td><td>想要有方向感的剧情就打开</td></tr>
-    <tr><td>语义召回</td><td><span class="tag tag-off">关</span></td><td>把记忆匹配从"关键词"升级为"含义理解"</td><td>长剧情、多角色、大长篇时需要。短篇不用</td></tr>
-  </table>
+    <div style="font-size:0.84rem;line-height:1.7">
+      <p><strong>🔄 三步联动闭环</strong></p>
+
+      <p><strong>第一步 · 输入 — 知识图谱 + 角色记忆双源取料</strong></p>
+      <p style="font-size:0.82rem;margin-left:12px">
+        智脑调用 <code style="background:rgba(167,139,250,0.12);padding:1px 5px;border-radius:3px;font-size:0.8rem">selectWorldProgressCandidates()</code> 自动筛选不在场角色（当前楼层不在 presentCharacters 中），综合态度、上次互动距今轮数、手动指定等维度打分排序，最多取 2 个。对每个候选角色：
+      </p>
+      <ul style="font-size:0.82rem;margin:0 0 8px 24px">
+        <li>从<strong>知识图谱</strong>取：当前位置 + 所在地全部物品 + 一跳连通地点路径 + 到主角所在地的最短路线（BFS 搜索）</li>
+        <li>从<strong>角色记忆</strong>取：最近 10 条核心/近期记忆，确保推演行动与既往事实、态度、目标连续</li>
+        <li>可选从<strong>世界书</strong>取：用户在面板中选择绑定的世界书条目作为额外参考</li>
+      </ul>
+
+      <p><strong>第二步 · 推演 — AI 精推行动</strong></p>
+      <p style="font-size:0.82rem;margin-left:12px">
+        AI 在 <code style="background:rgba(167,139,250,0.12);padding:1px 5px;border-radius:3px;font-size:0.8rem">&lt;thinking&gt;</code> 中逐角色执行思维链：确认时间切片 → 检查地点/物品/路径 → 参考记忆确保连续 → 用调色盘判断行动方向。每个角色输出一条<strong>第一人称近期记忆</strong>（30-80 字），可选附带轻微结果和<strong>自然入场引导</strong>：
+      </p>
+      <ul style="font-size:0.82rem;margin:0 0 8px 24px">
+        <li><strong>level 0：</strong>不暴露（entryHint 为 null，不强行引入角色）</li>
+        <li><strong>level 1：</strong>痕迹/物品/传闻（路过痕迹、遗留物品、旁人提及）</li>
+        <li><strong>level 2：</strong>口信/书信/通讯（可自然插入的远程互动）</li>
+        <li><strong>level 3：</strong>短暂本人入场（场景允许时角色短暂出现）</li>
+      </ul>
+
+      <p><strong>第三步 · 消费 — 三路输出</strong></p>
+      <ul style="font-size:0.82rem;margin:0 0 8px 16px">
+        <li><strong>→ 注入 AI 上下文：</strong>无入场引导的角色动态注入为 <code style="background:rgba(167,139,250,0.12);padding:1px 5px;border-radius:3px;font-size:0.8rem">&lt;world_state&gt;</code>（"场外角色动态"）；有入场引导的插在用户消息梦呓位置上方</li>
+        <li><strong>→ 合并进角色记忆：</strong>下一次大总结执行 <code style="background:rgba(167,139,250,0.12);padding:1px 5px;border-radius:3px;font-size:0.8rem">mergeWorldProgressIntoSummary()</code>，将覆盖楼层范围内的推演记忆按剧情时间排序合并进角色记忆档案，标记 <code style="background:rgba(167,139,250,0.12);padding:1px 5px;border-radius:3px;font-size:0.8rem">archivedInSummaryVersion</code></li>
+        <li><strong>→ 辅助小总结：</strong>最近一条未消费的推演记录作为材料发给小总结，提供"中心角色"和"中心地点"判定依据，消费后标记 <code style="background:rgba(167,139,250,0.12);padding:1px 5px;border-radius:3px;font-size:0.8rem">smallSummaryConsumed</code></li>
+      </ul>
+
+      <p style="font-size:0.82rem"><strong>触发时机：</strong>世界推进不在 AI 回复后立即执行，而是标记 pending → 等玩家下一次发消息时才后台推演。避免与 AI 正文生成抢 API、阻塞聊天体验。默认每 2 轮触发一次。</p>
+    </div>
   </div>
+</section>
 
-  <h3 id="s6-2">间隔与记忆数量</h3>
-  <div class="tbl-wrap reveal reveal-d2">
-  <table>
-    <tr><th>参数</th><th>默认</th><th>说明</th></tr>
-    <tr><td>大总结触发</td><td>每 10 条 AI 回复</td><td>调大 = 总结更少、省 token，但时间线跨度大</td></tr>
-    <tr><td>动态人设更新</td><td>每 2 条 AI 回复</td><td>角色性格变化跟得上的频率</td></tr>
-    <tr><td>保留不总结</td><td>最近 4 条</td><td>最近的对话太新了，先不纳入总结</td></tr>
-    <tr><td>每角色最少记忆</td><td>4 条</td><td>每次总结至少为每个角色生成这么多条</td></tr>
-    <tr><td>每角色最多记忆</td><td>8 条</td><td>每次总结最多为每个角色生成这么多条</td></tr>
-    <tr><td>近期记忆保留</td><td>最近 3 次总结</td><td>调大 = 角色记得更细但占更多 token</td></tr>
-    <tr><td>近期事件注入</td><td>最近 2 轮大总结</td><td>最近几轮的总结事件全部无条件注入</td></tr>
-    <tr><td>远期事件召回上限</td><td>15 条</td><td>每次最多从历史事件里召回这么多条</td></tr>
-  </table>
+<!-- 角色记忆 -->
+<section id="s5-4" class="reveal" style="margin-top:20px">
+  <div class="glass-card">
+    <h3 style="margin-top:0">角色记忆 — 核心永久 + 近期更替</h3>
+    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:8px">每个角色的第一人称记忆档案，分两层管理。</p>
+
+    <div class="two-col" style="margin-top:10px">
+      <div>
+        <p style="font-size:0.84rem;margin-bottom:6px"><strong>两层记忆结构</strong></p>
+        <ul style="font-size:0.82rem;margin:0;padding-left:16px">
+          <li><strong>核心记忆（永久）：</strong>决定角色本质的关键事件和关系。不会被自动删除，只有用户手动降级为近期后才会被自然替换。每条记忆带时间戳和版本号。</li>
+          <li><strong>近期记忆（自动更替）：</strong>最近 N 次大总结范围内的互动记录。每次新总结后旧近期记忆被新生成的内容覆盖。保留最近 3 个版本的近期记忆。</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:0.84rem;margin-bottom:6px"><strong>更新与合并</strong></p>
+        <ul style="font-size:0.82rem;margin:0;padding-left:16px">
+          <li><strong>并发执行：</strong>与大总结同时调用 API（<code style="background:rgba(167,139,250,0.12);padding:1px 5px;border-radius:3px;font-size:0.8rem">Promise.allSettled</code>），互不阻塞。任一方失败可独立重试。</li>
+          <li><strong>世界推进合并：</strong>大总结完成时，覆盖楼层范围内的世界推进记忆自动合并进角色记忆，按剧情时间排序，标记 <code style="background:rgba(167,139,250,0.12);padding:1px 5px;border-radius:3px;font-size:0.8rem">archivedInSummaryVersion</code> 防止重复合并。</li>
+          <li><strong>追忆面板：</strong>按大总结版本分组展示全部历史记忆。可手动编辑、升降级（核心 ↔ 近期）、逐条删除。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:10px;font-size:0.84rem">
+      <p style="margin-bottom:4px"><strong>生成规格</strong></p>
+      <p style="font-size:0.82rem;margin:0">
+        每条记忆由 AI 以角色第一人称撰写（"我……"），长度控制在 15-40 字。附带激活关键词（子串模糊匹配用）和人物关联列表。每角色每次大总结生成 4-8 条记忆（可调）。AI 被要求反极端化——不写"永远""绝对""彻底"，用"当前""倾向""最近"等柔性词。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 记忆召回 -->
+<section id="s5-5" class="reveal" style="margin-top:20px">
+  <div class="glass-card glass-card-accent">
+    <h3 style="margin-top:0">记忆召回 — 精准注入相关往事</h3>
+    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:8px">不是把所有记忆一次塞进来，而是按关系链精准激活——这是角色能"回忆"起久远之事的核心机制。</p>
+
+    <div style="font-size:0.84rem;line-height:1.7">
+      <p><strong>🎯 神经链架构</strong></p>
+      <p style="font-size:0.82rem;margin-left:12px">召回按关系链组织，锚点是当前场景中的在场角色：</p>
+      <ul style="font-size:0.82rem;margin:0 0 10px 24px">
+        <li><strong>链 1（用户 → 角色）：</strong>用户与每个在场角色之间的相关记忆</li>
+        <li><strong>链 2（角色 → 角色）：</strong>在场角色之间的相关记忆</li>
+        <li><strong>去重：</strong>链 2 过滤掉已在链 1 注入的文本，避免同一条记忆重复出现</li>
+      </ul>
+
+      <p><strong>🔤 关键词匹配（默认路径，无需额外配置）</strong></p>
+      <ul style="font-size:0.82rem;margin:0 0 10px 24px">
+        <li><strong>子串模糊命中：</strong>≥4 字的关键词提取 2-3 字滑动窗口，任一子串出现在对话中即命中。解决 AI 生成的复合词（如"腥臭爱液"）在自然对话中只出现片段（"爱液"）的问题。</li>
+        <li><strong>用户侧反向匹配：</strong>用户输入中的连续词块只要被关键词包含即命中。比如用户说了"蛊"，会匹配到触发词"月光蛊"。</li>
+        <li><strong>打分排序：</strong>综合匹配质量（0.50）+ 时间衰减（0.10）+ 关键词密度（0.15）+ 角色重叠度（0.15）+ 事件重要度（0.10），取分高者注入。</li>
+      </ul>
+
+      <p><strong>🧠 语义召回（可选开启，需配置 embedding API）</strong></p>
+      <ul style="font-size:0.82rem;margin:0 0 10px 24px">
+        <li>用统一查询向量（用户输入 + 最近 AI 回复的前 2000 字）对所有带 embedding 的记忆做余弦相似度计算</li>
+        <li>低于阈值的直接过滤，通过的按 0.60×相似度 + 0.25×时间衰减 + 0.15×重要度 综合排序</li>
+        <li>可选开启<strong>两阶段重排（Rerank）</strong>：粗筛后用专用重排模型精排，进一步提升召回精度</li>
+        <li>语义失败时自动降级为关键词匹配，不阻塞生成流程</li>
+      </ul>
+
+      <p><strong>📐 向量维度与模型选择</strong></p>
+      <ul style="font-size:0.82rem;margin:0 0 10px 24px">
+        <li><strong>维度越高 = 占内存越多：</strong>每条记忆/事件/图谱节点都会生成一个向量存在本地，维度直接影响存储占用和检索速度。高维度（1024+）语义更精细但存储开销大；低维度（256）检索快、省空间，足够满足角色扮演场景的召回精度。</li>
+        <li><strong>降维限制：</strong>硅基流动（SiliconFlow）的 embedding API <strong>仅支持千问系列模型</strong>（如 <code style="background:rgba(167,139,250,0.12);padding:1px 5px;border-radius:3px;font-size:0.8rem">Qwen3-Embedding</code>）使用 Matryoshka 降维参数。如果用的是 BGE-M3 等其他模型，降维参数会被忽略，始终输出模型原生维度。</li>
+        <li><strong>推荐配置：</strong>知识图谱节点推荐 256 维（节点数量大，低维省空间）；角色记忆和事件推荐 1024 维（语义精度优先）。如果不确定模型是否支持降维，先不填维度留空，跑一次后在召回设置面板查看实际维度再决定。</li>
+      </ul>
+
+      <p><strong>📅 事件回忆分流</strong></p>
+      <ul style="font-size:0.82rem;margin:0 0 10px 24px">
+        <li><strong>近期事件：</strong>最近 N 轮大总结的时间线事件全部无条件注入（默认 2 轮）</li>
+        <li><strong>远期事件：</strong>只有触发词（角色+关键词）在对话中命中时才召回</li>
+        <li><strong>召回上限：</strong>用户匹配优先（userHit），AI 侧匹配补充填充剩余配额，每类最多召回 8-15 条（可调）</li>
+      </ul>
+
+      <p style="font-size:0.82rem"><strong>注入时机：</strong>每次 AI 回复前，在 <code style="background:rgba(167,139,250,0.12);padding:1px 5px;border-radius:3px;font-size:0.8rem">CHAT_COMPLETION_SETTINGS_READY</code> 事件中执行，与知识图谱注入、动态人设注入同一生命周期。世界推进产生的角色记忆也参与召回——即使该角色从未被大总结覆盖过也能被激活。</p>
+    </div>
   </div>
 </section>
 
@@ -898,7 +919,7 @@
 <!-- ================================================================ -->
 <!-- 常见问题 — 折叠式 FAQ -->
 <!-- ================================================================ -->
-<section id="s7" class="reveal">
+<section id="s6" class="reveal">
   <h2>常见问题</h2>
 
   <div class="faq-item reveal reveal-d1">
@@ -913,7 +934,7 @@
 
   <div class="faq-item reveal reveal-d1">
     <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">换电脑了，数据怎么迁移？</button>
-    <div class="faq-a"><div class="faq-a-inner"><p>在原设备上打开智脑面板 &rarr; 设置 &rarr; 数据管理 &rarr; <strong>导出数据</strong>，会下载一个 JSON 文件。把文件传到新设备，在新设备上打开同一个聊天，进入智脑设置 &rarr; 数据管理 &rarr; <strong>导入数据</strong>，选择文件即可。注意：导出导入<strong>只针对当前聊天</strong>，不同聊天之间的数据是独立的。</p></div></div>
+    <div class="faq-a"><div class="faq-a-inner"><p>直接导出聊天记录即可。智脑的所有数据（角色记忆、时间线、知识图谱、世界推进记录、梦呓、动态人设等）<strong>全部存储在酒馆的聊天记录中</strong>，跟随聊天一起走。把导出的聊天文件放到新电脑的酒馆中导入，智脑数据会自动恢复，无需额外操作。</p></div></div>
   </div>
 
   <div class="faq-item reveal reveal-d1">
@@ -922,18 +943,53 @@
   </div>
 
   <div class="faq-item reveal reveal-d2">
-    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">重 roll 之后智脑的记录会乱吗？</button>
-    <div class="faq-a"><div class="faq-a-inner"><p>放心重 roll，智脑会自动处理。重 roll 某条 AI 回复后，对应楼层的小总结会重新生成并替换旧记录，知识图谱也会同步更新。</p></div></div>
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">喜欢重 roll，数据会乱吗？</button>
+    <div class="faq-a"><div class="faq-a-inner">
+      <p><strong>重 roll 单层：</strong>完全没问题，什么都不用管。智脑会自动重跑该楼层的小总结并替换旧记录，图谱和角色位置同步更新。</p>
+      <p><strong>多层退回重 roll：</strong>请注意以下限制：</p>
+      <ul>
+        <li><strong>已开启知识图谱：</strong>图谱最多保留 6 张快照，只支持<strong>五轮内</strong>退回。超出五轮的旧图谱已被淘汰，无法恢复。</li>
+        <li><strong>未开启知识图谱：</strong>可以退回多层之前，不受图谱快照限制。</li>
+        <li><strong>大总结：</strong>在总览处可手动撤回，回退到指定版本。撤回后覆盖楼层内的角色记忆会被还原到上一版本。</li>
+        <li><strong>动态人设：</strong>不会自动回退，须在面板中手动删除对应版本。</li>
+        <li><strong>世界推进：</strong>退回楼层范围内的推演记录需手动逐条删除。</li>
+      </ul>
+    </div></div>
   </div>
 
   <div class="faq-item reveal reveal-d2">
-    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">删除了多层聊天，智脑的记录怎么清理？</button>
-    <div class="faq-a"><div class="faq-a-inner"><p>打开总览，用<strong>撤回</strong>功能把大总结撤回到删除楼层之前的版本。图谱也有独立的撤回按钮，同样撤回到对应版本。世界推进里的条目需要手动删除——找到被删除楼层范围内的记录，逐条删掉即可。</p></div></div>
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">能和其他记忆插件一起用吗？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>不建议。智脑的正文捕获、小总结、大总结、角色记忆是一套完整闭环，和其他记忆插件同时运行会产生冲突和重复注入。如果非要用，可以在设置中<strong>关掉小总结、大总结和角色记忆</strong>，只保留动态人设、梦呓等不冲突的模块。注意：关掉小总结意味着知识图谱也会停止更新（图谱是搭车小总结的），但已生成的图谱数据不会丢失。</p></div></div>
+  </div>
+
+  <div class="faq-item reveal reveal-d2">
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">API 回空、破甲破不开怎么办？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>智脑的 API 设置界面可以<strong>手动编辑破甲词</strong>。打开面板 &rarr; 设置 &rarr; 网络与 API，在管理 API 的弹窗中切换到「破甲词」标签，可以分别编辑大总结、小总结、梦呓、世界推进、剧情导演等各模块的破甲提示词。如果默认破甲在你的 API 渠道上不生效，在这里自定义即可。</p></div></div>
+  </div>
+
+  <div class="faq-item reveal reveal-d2">
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">出现了两个智脑悬浮球是什么原因？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>明月秋青预设里会自带一个老版智脑。在酒馆的扩展管理 &rarr; 酒馆助手 &rarr; 脚本中，找到老版本的智脑脚本，<strong>删除或禁用</strong>即可，只保留新版。</p></div></div>
   </div>
 
   <div class="faq-item reveal reveal-d2">
     <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">AI 把同一个角色认成了两个人？</button>
     <div class="faq-a"><div class="faq-a-inner"><p>打开人物志 &rarr; 角色库，点<strong>编辑角色</strong>，在角色右侧点击<strong>合并按钮</strong>，选择要合并的目标角色，确认即可。智脑已经内置了别名自动归一化，但偶尔 AI 还是会用完全不同的称呼，手动合并就能解决。</p></div></div>
+  </div>
+
+  <div class="faq-item reveal reveal-d3">
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">世界推进和知识图谱、角色记忆是什么关系？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>三者是联动闭环：<strong>输入</strong>时，世界推进从知识图谱取角色位置/物品/路径，从角色记忆取既往事实和态度；<strong>输出</strong>后，推演产生的第一人称记忆会注入上下文（"场外动态"），并在下一次大总结时自动合并进角色记忆档案，同时小总结消费推演材料辅助判定场景。所以开启世界推进前，最好先跑过至少一次大总结（确保有角色记忆和知识图谱数据）。</p></div></div>
+  </div>
+
+  <div class="faq-item reveal reveal-d3">
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">知识图谱里出现了错误的地点/物品怎么改？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>面板 &rarr; 记事本 → 图谱子标签，可以可视化浏览整个图谱并手动增删改节点和边。图谱是搭车小总结自动维护的，重 roll 楼层后旧数据会被自动清理。</p></div></div>
+  </div>
+
+  <div class="faq-item reveal reveal-d3">
+    <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">图谱中角色位置不对怎么办？</button>
+    <div class="faq-a"><div class="faq-a-inner"><p>打开面板 &rarr; 记事本 → 图谱子标签，在可视化界面中<strong>点击该角色节点</strong>，右侧会弹出详情面板，可手动更改角色的当前位置。位置更新后会立即反映到后续的世界推进推演和上下文注入中。</p></div></div>
   </div>
 
 </section>
