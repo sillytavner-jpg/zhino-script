@@ -1,16 +1,16 @@
 # 明月秋青脚本 CDN 发布仓
 
-当前版本：A5.2.2
+当前版本：A5.2.5
 
 ## 导入
 
-- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.2/mingyue-qiuqing-A5.2.2.json
-- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.2/dist/index.js
+- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.5/mingyue-qiuqing-A5.2.5.json
+- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.5/dist/index.js
 
 ## 本次重点
 
-A5.2.2 破限词换血（秋青子 → 星光四部分大脑：小左/小右/小爱/前额叶）+ 预设槽位注入
-（12 个 `<!--ZHINO_xxx-->` 锚点，带「槽位 → 老锚点 → depth 注入 → 消息尾部」兜底链）
-+ 删除「世界书标签编排」+ 正文解析加固（`<UpdateVariable>` 泄漏 108 条 → 0）。
+A5.2.5 新增「**适配当前预设**」—— 一键把智脑的 13 个槽位条目插进任意预设的合适位置，
+生成一个「原名（智脑适配）」的新预设（不改动原预设）；总览界面三功能合并成一行，
+输出模式简化为单开关。详见 `UPDATE-A5.2.5.md`。
 
-旧用户需要重新导入 A5.2.2 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.2.2`。
+旧用户需要重新导入 A5.2.5 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.2.5`。
