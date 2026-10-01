@@ -1,16 +1,22 @@
 # 明月秋青脚本 CDN 发布仓
 
-当前版本：A5.2.6
+当前版本：A5.2.8
 
 ## 导入
 
-- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.6/mingyue-qiuqing-A5.2.6.json
-- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.6/dist/index.js
+- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.8/mingyue-qiuqing-A5.2.8.json
+- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.8/dist/index.js
 
 ## 本次重点
 
-A5.2.6 新增「**适配当前预设**」—— 一键把智脑的 13 个槽位条目插进任意预设的合适位置，
-生成一个「原名（智脑适配）」的新预设（不改动原预设）；总览界面三功能合并成一行，
-输出模式简化为单开关。详见 `UPDATE-A5.2.6.md`。
+A5.2.8 一口气跨了两个版本，五块改动：
 
-旧用户需要重新导入 A5.2.6 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.2.6`。
+1. **第0层开场白不再被字数门槛丢掉** —— 前端卡几十字的开场白改为与首轮正文合并进第一次小总结
+2. **输出模式（MUV 化）默认关闭** —— 降级为实验性功能，存量旧默认配置自动清空
+3. **预设适配独立弹窗 + 输出标签可配置** —— 填上你预设里的思维链 / 正文 / 时间标签，智脑就能读懂它
+4. **批量总结三个勾选项 + 全新「图谱总结」** —— 一批 20 层一次性发出去、产出一份图谱
+5. **失败与重试行为统一** —— 只保留一套重试；「停止总结」立刻生效；网络失败提示不再被截断
+
+详见 `UPDATE-A5.2.8.md`。
+
+旧用户需要重新导入 A5.2.8 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.2.8`。
