@@ -1,22 +1,22 @@
 # 明月秋青脚本 CDN 发布仓
 
-当前版本：A5.2.8
+当前版本：A5.2.9
 
 ## 导入
 
-- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.8/mingyue-qiuqing-A5.2.8.json
-- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.8/dist/index.js
+- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.9/mingyue-qiuqing-A5.2.9.json
+- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.2.9/dist/index.js
 
 ## 本次重点
 
-A5.2.8 一口气跨了两个版本，五块改动：
+A5.2.9 两块改动：
 
-1. **第0层开场白不再被字数门槛丢掉** —— 前端卡几十字的开场白改为与首轮正文合并进第一次小总结
-2. **输出模式（MUV 化）默认关闭** —— 降级为实验性功能，存量旧默认配置自动清空
-3. **预设适配独立弹窗 + 输出标签可配置** —— 填上你预设里的思维链 / 正文 / 时间标签，智脑就能读懂它
-4. **批量总结三个勾选项 + 全新「图谱总结」** —— 一批 20 层一次性发出去、产出一份图谱
-5. **失败与重试行为统一** —— 只保留一套重试；「停止总结」立刻生效；网络失败提示不再被截断
+1. **开场白也进大总结了** —— 短开场白（前端卡常见）会并入第一次大总结，
+   材料里标明「设定与场景前提，不是已发生事件」
+2. **数据导出可选内容 + 导入分两种模式** ——
+   导出可勾选时光轴 / 图谱 / 角色记忆 / 全局设置等 12 个分组；
+   导入分「恢复备份」（同聊天还原）与「继承到新聊天」（重置楼层游标，把记忆搬到新聊天继续玩）
 
-详见 `UPDATE-A5.2.8.md`。
+详见 `UPDATE-A5.2.9.md`。
 
-旧用户需要重新导入 A5.2.8 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.2.8`。
+旧用户需要重新导入 A5.2.9 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.2.9`。
