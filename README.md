@@ -1,24 +1,27 @@
 # 明月秋青脚本 CDN 发布仓
 
-当前版本：A5.3.0
+当前版本：A5.3.1
 
 ## 导入
 
-- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.3.0/mingyue-qiuqing-A5.3.0.json
-- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.3.0/dist/index.js
+- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.3.1/mingyue-qiuqing-A5.3.1.json
+- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.3.1/dist/index.js
 
 ## 本次重点
 
-A5.3.0 四块改动：
+**A5.3.1（修复版）**
 
-1. **开场白也进大总结了** —— 短开场白（前端卡常见）会并入第一次大总结，
-   材料里标明「设定与场景前提，不是已发生事件」
-2. **数据导出可选内容 + 导入分两种模式** ——
-   导出可勾选时光轴 / 图谱 / 角色记忆 / 全局设置等 12 个分组；
-   导入分「恢复备份」（同聊天还原）与「继承到新聊天」（重置楼层游标，把记忆搬到新聊天继续玩）
-3. **槽位标记兜底清理** —— 万一有漏网，也不会把占位标记留在提示词里
-4. **梦呓 / 动态人设改为默认关闭** —— 想用去「设置 → 常规设置 → 自动分析」打开
+1. **修复 `props is not defined` 控制台刷屏** —— 基础弹窗组件漏了 `const props =`，
+   每轮组件求值都抛错（Modal 是全部弹窗的基础，所以刷得特别多）
+2. **API 报错分类** —— 空响应不再一律说「格式异常」：
+   内容被审核拦截 / 输出被截断 / 其他空响应 分开报，且只陈述事实
+3. 代码日志里被拦截的错误会带上 token 数，方便判断"到底生成了多少"
 
-详见 `UPDATE-A5.3.0.md`。
+**A5.3.0（上一版）**
 
-旧用户需要重新导入 A5.3.0 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.3.0`。
+开场白进大总结 · 数据导出可选 12 个分组 · 导入分「恢复备份 / 继承到新聊天」·
+槽位标记兜底清理 · 梦呓 / 动态人设改为默认关闭
+
+详见 `UPDATE-A5.3.1.md`。
+
+旧用户需要重新导入 A5.3.1 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.3.1`。
