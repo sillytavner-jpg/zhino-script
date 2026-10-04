@@ -1,27 +1,29 @@
 # 明月秋青脚本 CDN 发布仓
 
-当前版本：A5.3.3
+当前版本：A5.3.4
 
 ## 导入
 
-- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.3.3/mingyue-qiuqing-A5.3.3.json
-- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.3.3/dist/index.js
+- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.3.4/mingyue-qiuqing-A5.3.4.json
+- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.3.4/dist/index.js
 
 ## 本次重点
 
-**A5.3.3** —— 在 5.3.2 的诊断日志基础上，把「代码日志」面板也修好了。
+**A5.3.4（重要修复）** —— 修掉两个会**静默失效**的真 bug：
 
-1. **代码日志可以看全文了** —— 以前长日志是单行截断（末尾 `…`），
-   排查时根本看不清；现在**点一下任意一条**就能展开全文（自动换行、可选中复制）
+1. **槽位标记不再裸露** —— 关键词匹配里调用了一个不存在的函数名（`fuzzyMatchKeywordUser`），
+   一走到那条路径就抛 `ReferenceError`，把整轮分析回调打断，
+   导致后面的槽位注入全跳过、`<!--ZHINO_XXX-->` 标记原样发给模型
+2. **语义召回不再静默降级** —— `index.ts` 漏了 `cosineSimilarity` 的 import，
+   调用即抛错、被捕获后静默降级成关键词匹配。
+   **即：之前所有开了语义召回的用户，语义召回其实一直是坏的**
 
-**A5.3.2** —— 槽位问题的诊断日志（模块名「槽位注入」）：
+> 修复后语义召回会真正生效，召回结果可能与之前不同 —— 属预期内的改善。
 
-- 命中 MVU 额外解析轮时明确记一条（以前这个分支是静默跳过的）
-- 每次生成记录探测概况：`消息 N 条｜含 ZHINO_ 的 M 条｜识别到槽位 K 个`；
-  若「有标记但识别到 0 个」，还会打出标记的实际样本
+**A5.3.3** —— 代码日志点击展开看全文 + 槽位注入诊断日志
 
-**A5.3.1** —— 修复 `props is not defined` 刷屏 + API 空响应按 `finish_reason` 分类报错
+**A5.3.1** —— 修复 `props is not defined` 刷屏 + API 空响应分类报错
 
-详见 `UPDATE-A5.3.3.md`。
+详见 `UPDATE-A5.3.4.md`。
 
-旧用户需要重新导入 A5.3.3 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.3.3`。
+旧用户需要重新导入 A5.3.4 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.3.4`。
