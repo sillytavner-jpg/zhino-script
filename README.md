@@ -1,40 +1,39 @@
 # 明月秋青脚本 CDN 发布仓
 
-当前版本：A5.4.0
+当前版本：A5.4.1
 
 ## 导入
 
-- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.4.0/mingyue-qiuqing-A5.4.0.json
-- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.4.0/dist/index.js
+- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.4.1/mingyue-qiuqing-A5.4.1.json
+- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.4.1/dist/index.js
 
 ## 本次重点
 
-**A5.4.0** —— 合并 A5.3.9 → A5.3.10 → A5.3.11 三版改动，一次较大的机制升级。
+**A5.4.1** —— 代码健康度清理版。`tsc` 类型错误从 **103 条清到 `src/` 归零**，
+无新功能、无行为变更，目的是让代码库回到「类型检查干净」的状态。
 
-### ① 请求改流式（抗静默超时，A5.3.9）
+### ① 修掉三个「静默失效」的真问题
 
-非流式请求要等全部生成完才收到响应（大总结实测 31 秒），中间浏览器收不到任何字节，
-代理 / 网关 / 中转站的静默超时容易在这段真空期掐断连接 → `Failed to fetch`。
+- **记忆向量生成报 `is not a function`** —— `syncCharacterMemoryBatchEmbeddings` 是**悬空调用**
+  （3 处调用、0 处定义），后台队列「记忆向量生成」重试 3 次仍失败。已删除。
+- **`quietInjectionGuard` 守卫恒不生效** —— 字段少写了一层（应为 `store.settings.quietInjectionGuard`），
+  导致静默 / 指令 / 扩写类后台调用**一直被注入智脑内容**。
+- **关系分析一直拿到空数组** —— 误用了已废弃的 V1 字段 `dynamicProfiles`（真实数据在 `dynamicProfilesV2`），
+  动态人设材料从未真正进入关系分析。
 
-现在所有分析请求改走流式：连接持续有数据（不被静默超时掐断）+ 实时生成进度
-（`● 大总结 生成中… 1,234 字 · 12.3s`）+ 截断检测 + 请求方式开关（流式/非流式）。
+### ② 其它修复
 
-### ② 大总结链路收敛（A5.3.10）
+- **删楼 / 重 roll 抛 `ReferenceError`** —— `clearWPConsumedFlag` 作用域错误（嵌在 `$()` 回调内，已提到模块顶层）
+- **事件监听器从未注销** —— 旧的注销写法引用了不存在的变量（被 `try/catch` 吞掉）→ 重复触发 + 内存泄漏
+- **梦呓「点缀」从不注入** —— 读错字段（`accentColor` → `accent`）
+- **NSFW 记忆缺时间戳** —— patch 路径漏了必填的 `lastUpdatedAt`
+- **`logger` 的 detail 支持传对象** —— 此前签名为 `string`，真传对象时面板显示成 `[object Object]`
 
-「大总结V2 + 角色记忆」原有三套各写各的实现：自动触发是并发，**手动"重新总结"与批量却是串行**。
-表现就是"大总结事件字出完了，才开始分析角色记忆"，白等一倍时间。
-现统一到 `core/summaryChain.ts`：**并发 + 耗时日志 + AbortSignal 透传 + 失败续跑**。
+### ③ 清理统计
 
-### ③ 重试统一到队列（A5.3.11）
+- `tsc --noEmit`：**103 → 0**（`src/` 归零，仅剩第三方声明文件的噪音）
+- 23 个文件改动，净删 79 行死代码（含一个**整个空转的**「世界书角色名缓存」函数）
 
-`callGenerateRaw` 自带一层重试（3 次） + 大总结外层又一层（3 次）= 最多 **9 次**叠加。
-现拆掉所有内层重试，**唯一重试点 = 后台队列**：失败 → 弹倒计时窗 → 重跑同一任务，上限 `apiMaxRetries`（默认 3）。
-覆盖所有后台任务；批量总结保留"每批失败→暂停→用户点继续"的手动续跑。
+详见 `UPDATE-A5.4.1.md`。
 
-### 特别提示
-
-若你的渠道并发会 429 限流，可在 **设置 → 调度模式** 切「排队模式（1个1个）」。
-
-详见 `UPDATE-A5.4.0.md`。
-
-旧用户需要重新导入 A5.4.0 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.4.0`。
+旧用户需要重新导入 A5.4.1 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.4.1`。
