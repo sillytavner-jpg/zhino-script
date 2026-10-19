@@ -1,39 +1,37 @@
 # 明月秋青脚本 CDN 发布仓
 
-当前版本：A5.4.2
+当前版本：A5.5.0
 
 ## 导入
 
-- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.4.2/mingyue-qiuqing-A5.4.2.json
-- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.4.2/dist/index.js
+- 薄壳 JSON：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.5.0/mingyue-qiuqing-A5.5.0.json
+- 主脚本：https://cdn.jsdelivr.net/gh/sillytavner-jpg/zhino-script@v5.5.0/dist/index.js
 
 ## 本次重点
 
-**A5.4.2** —— DeepSeek V4.1 Flash 适配版，新增破限第三档 **DS4.1F**。
+**A5.5.0** —— 修大总结把多个角色合成一个；给 3.7 / 3.8F 加「收尾结算」防道歉 / 防截断。
 
-### 为什么
+### 一、角色合并
 
-DeepSeek V4.1 Flash 的**思考模式默认开启**（effort 默认 `high`），不显式关就是全程在思考。
-而思考模式下 `temperature` 静默失效 —— 智脑里所有温度设置等于摆设。
-更麻烦的是，它会和智脑自己的 `<thinking>` 输出契约**叠成两层思考**，
-白烧 token 还挤占格式预算。
+群像场景下大总结会把三个角色整理成一个人。根因是三层叠加：
 
-### 改了什么
+- 大总结从来没拿到过角色名册（小总结、角色记忆都有）
+- 提示词只说「太多就合并相邻事件」，没划清「事件可以并、人不能并」
+- 写库前没有身份守卫，AI 把 A 的名字写成 B 的别名也会照存
 
-- 破限从两态（老模型 / 3.7·3.8F）扩成三态，新增 **DS4.1F**：
-  破限文本与 3.7/3.8F 完全一致，只多在请求体里发 `thinking:{type:'disabled'}`
-- 顶部总开关 + 逐分析类型行内切换，都多了第三档
-- 老模型 / 3.7·3.8F 两档行为**零变化**；旧数据里的 `legacy` / `flash` 原值继续有效
+本版：注入三列角色名册（正式名 / 专属称呼 / 泛称职位）、输出加 `castInMaterial` 先点名再写事件、
+合并边界写死、名字归一化提前到拼上一轮续写参考之前。
 
-### 实测
+### 二、收尾结算
 
-| 场景 | 耗时 | reasoning_tokens | completion |
-|---|---|---|---|
-| 默认 | 1147ms | 49 | 61 |
-| 关思考 | 598ms | 字段消失 | 11 |
+3.7 / 3.8F 破限后追加一整块《收尾结算 v5》（16 块结算 + 场外推演 + 戏剧张力 + 10 条硬校验），
+让模型以为正文后还有一大堆活，不敢半路收束或道歉。
 
-省 82% 输出 token、快约 48%，答案与破限格式完全一致。
+流式读到 `<TAIL>` 就断开，结算单零 token 生成。
 
-详见 `UPDATE-A5.4.2.md`。
+**只在「流式 + 3.7/3.8F + 非 json_object」下投放**，设置里「收尾压力」开关默认开、可关。
+老模型档与其余情况行为零变化。
 
-旧用户需要重新导入 A5.4.2 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.4.2`。
+详见 `UPDATE-A5.5.0.md`。
+
+旧用户需要重新导入 A5.5.0 薄壳，或把已有脚本 content 中的版本 tag 改为 `v5.5.0`。
